@@ -6,7 +6,7 @@ const SignUpPage = () => {
       signInUrl={`/login`}
       appearance={{
         variables: {
-          colorPrimary: 'black',
+          colorPrimary: 'green',
         },
       }}
     ></SignUp>
