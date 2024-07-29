@@ -57,11 +57,11 @@ export async function POST(req: Request) {
   console.log('Webhook body:', body);
 
   if (eventType == 'user.created' && id) {
-    // await prisma.user.create({
-    //   data: {
-    //     id: id,
-    //   },
-    // });
+    await prisma.user.create({
+      data: {
+        id: id,
+      },
+    });
     console.log(id);
   }
 
