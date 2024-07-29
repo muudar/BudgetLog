@@ -1,6 +1,21 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { request } from 'http';
+import { NextResponse } from 'next/server';
 
-export default clerkMiddleware();
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
+
+export default clerkMiddleware((auth, req) => {
+  const url = req.nextUrl;
+  const { userId, getToken } = auth();
+  if (isProtectedRoute(req) && !userId) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: process.env.CLERK_SIGN_IN_URL as string,
+      },
+    });
+  }
+});
 
 export const config = {
   matcher: [

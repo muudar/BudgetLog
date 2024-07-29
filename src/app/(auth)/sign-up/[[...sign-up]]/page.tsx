@@ -4,6 +4,7 @@ const SignUpPage = () => {
   return (
     <SignUp
       signInUrl={`/login`}
+      forceRedirectUrl={'/dashboard'}
       appearance={{
         variables: {
           colorPrimary: 'green',

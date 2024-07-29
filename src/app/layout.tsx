@@ -1,4 +1,6 @@
 import {
+  ClerkLoaded,
+  ClerkLoading,
   ClerkProvider,
   SignInButton,
   SignedIn,
@@ -31,7 +33,12 @@ export default function RootLayout({
     >
       <html lang="en">
         <body className={`${inter.className} bg-zinc-100 text-zinc-900`}>
-          <main>{children}</main>
+          <ClerkLoading>
+            <div>Loading</div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <main>{children}</main>
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>
