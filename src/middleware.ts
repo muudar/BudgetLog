@@ -1,8 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-export default clerkMiddleware((auth, req) => {
-  console.log('checking');
-});
+export default clerkMiddleware((auth, req) => {});
 
 export const config = {
   matcher: [
