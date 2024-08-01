@@ -7,7 +7,6 @@ const page = () => {
       <SignedIn>
         <SignOutButton redirectUrl="/login"></SignOutButton>
       </SignedIn>
-      <div>dashboard page</div>
     </div>
   );
 };
