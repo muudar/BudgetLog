@@ -12,5 +12,9 @@ datasource db {
 }
 
 model User {
-  id    String @unique
+  id        String  @unique
+  balance   Float   @default(0.0)
+  spendings Float   @default(0.0)
+  earnings  Float   @default(0.0)
+  savings   Float   @default(0.0)
 }

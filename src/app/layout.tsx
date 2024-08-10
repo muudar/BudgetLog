@@ -34,7 +34,9 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.className} bg-zinc-100 text-zinc-900`}>
           <ClerkLoading>
-            <div>Loading</div>
+            <div className="flex h-screen w-screen items-center justify-center text-2xl font-bold lg:text-4xl">
+              Authorizing...
+            </div>
           </ClerkLoading>
           <ClerkLoaded>
             <main>{children}</main>
