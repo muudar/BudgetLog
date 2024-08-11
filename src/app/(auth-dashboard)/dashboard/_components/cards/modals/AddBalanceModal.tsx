@@ -34,23 +34,23 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
 
   const handleSavingsTransfer = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
-      let res = null;
       try {
         toast.loading('Transferring...', {
           id: 'loading',
         });
         e.preventDefault();
-        res = await transferSavings(transferAmount, currentSavings);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        toast.remove('loading');
-        if (res?.ok) {
+        const res = await transferSavings(transferAmount, currentSavings);
+        if (res.ok) {
           toast.success(res.message);
           setOpen(false);
-        } else {
-          toast.error(res?.message || 'Internal server error');
         }
+      } catch (error) {
+        toast.error(
+          error instanceof Error ? error.message : 'Internal server error'
+        );
+        console.error(error);
+      } finally {
+        toast.remove('loading');
       }
     },
     [transferAmount, currentSavings]
