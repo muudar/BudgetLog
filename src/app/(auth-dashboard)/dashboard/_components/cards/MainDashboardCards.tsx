@@ -1,8 +1,5 @@
 import { getCurrentUserData } from '@/actions/actions';
-import BalanceCard from './BalanceCard';
-import EarningsCard from './EarningsCard';
-import SavingsCard from './SavingsCard';
-import SpendingCard from './SpendingCard';
+import FinanceOverviewCard from './FinanceOverviewCard';
 
 const MainDashboardCards = async () => {
   var data = null;
@@ -15,10 +12,26 @@ const MainDashboardCards = async () => {
   }
   return (
     <>
-      <BalanceCard balance={data?.balance}></BalanceCard>
-      <SavingsCard savings={data?.savings}></SavingsCard>
-      <EarningsCard earnings={data?.earnings}></EarningsCard>
-      <SpendingCard spendings={data?.spendings}></SpendingCard>
+      <FinanceOverviewCard
+        title={'Balance'}
+        value={data?.balance}
+        backgroundColor="#ECF5E7"
+      ></FinanceOverviewCard>
+      <FinanceOverviewCard
+        title={'Savings'}
+        value={data?.savings}
+        backgroundColor="#EBEFFE"
+      ></FinanceOverviewCard>
+      <FinanceOverviewCard
+        title={'Earnings'}
+        value={data?.earnings}
+        backgroundColor="#ECF5F4"
+      ></FinanceOverviewCard>
+      <FinanceOverviewCard
+        title={'Spendings'}
+        value={data?.spendings}
+        backgroundColor="#f6d5d4"
+      ></FinanceOverviewCard>
     </>
   );
 };
