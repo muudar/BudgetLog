@@ -106,7 +106,7 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-1">
-                    <Label htmlFor="name">Current Balance</Label>
+                    <Label htmlFor="currentBalance">Current Balance</Label>
                     <Input
                       id="currentBalance"
                       defaultValue={currentBalance}
@@ -114,7 +114,7 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
                     />
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="username">New Balance</Label>
+                    <Label htmlFor="newBalance">New Balance</Label>
                     <Input
                       id="newBalance"
                       value={newBalance}
@@ -151,16 +151,16 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
                 <CardContent className="space-y-2">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="name">Current Balance</Label>
+                      <Label htmlFor="currentBalance">Current Balance</Label>
                       <Input defaultValue={currentBalance} disabled />
                     </div>
                     <div>
-                      <Label htmlFor="name">Current Savings</Label>
+                      <Label htmlFor="currentSavings">Current Savings</Label>
                       <Input value={currentSavings} disabled />
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="username">Transfer Amount</Label>
+                    <Label htmlFor="transferAmount">Transfer Amount</Label>
                     <Input
                       id="transferAmount"
                       type="number"
