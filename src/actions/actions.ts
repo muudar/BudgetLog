@@ -2,8 +2,6 @@
 
 import prisma from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
-import { error } from 'console';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { revalidatePath } from 'next/cache';
 
 export async function getCurrentUserData() {
