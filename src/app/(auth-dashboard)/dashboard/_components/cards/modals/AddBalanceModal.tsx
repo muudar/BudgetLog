@@ -53,7 +53,7 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
         }
       }
     },
-    [transferAmount]
+    [transferAmount, currentSavings]
   );
 
   const handleChangeBalanceSubmit = useCallback(
