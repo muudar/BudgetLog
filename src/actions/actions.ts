@@ -33,11 +33,7 @@ export async function getCurrentUserDataWithDelay(delay: number) {
 
   return userData;
 }
-
 export async function updateBalance(newBalance: number) {
-  let success = false;
-  let error = false;
-  let errorMessage = '';
   try {
     if (
       isNaN(newBalance) ||
@@ -49,7 +45,7 @@ export async function updateBalance(newBalance: number) {
     }
     const { userId } = auth();
     if (!userId) throw new Error('User not authenticated');
-    let update = await prisma.user.update({
+    const update = await prisma.user.update({
       where: {
         id: userId,
       },
@@ -58,22 +54,15 @@ export async function updateBalance(newBalance: number) {
       },
     });
     if (!update) throw new Error('User not found');
-    success = true;
-    error = false;
+    return { message: 'Successfully updated balance.', ok: true };
   } catch (err) {
-    error = true;
-    errorMessage = err instanceof Error ? err.message : 'Internal Server Error';
-    console.log(err);
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
   } finally {
     revalidatePath('/dashboard');
-    if (error) {
-      return { message: errorMessage, ok: false };
-    }
-    if (success)
-      return {
-        message: 'Successfully updated balance.',
-        ok: true,
-      };
   }
 }
 
@@ -81,9 +70,6 @@ export async function transferSavings(
   transferAmount: number,
   currentSavings: number
 ) {
-  let success = false;
-  let error = false;
-  let errorMessage = '';
   try {
     if (
       isNaN(transferAmount) ||
@@ -95,7 +81,7 @@ export async function transferSavings(
     }
     const { userId } = auth();
     if (!userId) throw new Error('User not authenticated');
-    let update = await prisma.user.update({
+    const update = await prisma.user.update({
       where: {
         id: userId,
       },
@@ -109,21 +95,17 @@ export async function transferSavings(
       },
     });
     if (!update) throw new Error('User not found');
-    success = true;
-    error = false;
+    return {
+      message: 'Successfully transferred amount.',
+      ok: true,
+    };
   } catch (err) {
-    error = true;
-    errorMessage = err instanceof Error ? err.message : 'Internal Server Error';
-    console.log(err);
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
   } finally {
     revalidatePath('/dashboard');
-    if (error) {
-      return { message: errorMessage, ok: false };
-    }
-    if (success)
-      return {
-        message: 'Successfully transferred amount.',
-        ok: true,
-      };
   }
 }
