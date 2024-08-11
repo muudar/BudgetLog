@@ -17,23 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        variables: { colorPrimary: 'green' },
-      }}
-    >
-      <html lang="en">
-        <body className={`${inter.className} bg-zinc-100 text-zinc-900`}>
-          <ClerkLoading>
-            <div className="flex h-screen w-screen items-center justify-center text-2xl font-bold lg:text-4xl">
-              Authorizing...
-            </div>
-          </ClerkLoading>
-          <ClerkLoaded>
-            <main>{children}</main>
-          </ClerkLoaded>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html>
+      <body>{children}</body>
+    </html>
   );
 }
