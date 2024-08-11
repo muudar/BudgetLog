@@ -1,21 +1,32 @@
-import { getCurrentUserData } from '@/actions/actions';
+'use server';
+
+import { auth } from '@clerk/nextjs/server';
 import FinanceOverviewCard from './FinanceOverviewCard';
+import AddBalanceModal from './modals/AddBalanceModal';
+import prisma from '@/lib/db';
+
+type userData = any;
 
 const MainDashboardCards = async () => {
-  var data = null;
-  try {
-    data = await getCurrentUserData();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    if (!data) return null;
-  }
+  const userId: string | null = auth().userId;
+  if (!userId) return null;
+  const data: userData = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
   return (
     <>
       <FinanceOverviewCard
         title={'Balance'}
         value={data?.balance}
         backgroundColor="#ECF5E7"
+        modal={() => (
+          <AddBalanceModal
+            currentBalance={data?.balance}
+            currentSavings={data?.savings}
+          />
+        )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
         title={'Savings'}

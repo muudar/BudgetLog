@@ -4,26 +4,27 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
-  CardFooter,
 } from '@/components/ui/card';
-import { ArrowUpRight } from 'lucide-react';
-import React from 'react';
 
 type Props = {
   value: number;
   title: string;
   backgroundColor: string;
+  modal?: () => JSX.Element;
 };
 
-const FinanceOverviewCard = ({ value, title, backgroundColor }: Props) => {
+const FinanceOverviewCard = ({
+  value,
+  title,
+  backgroundColor,
+  modal,
+}: Props) => {
   return (
-    <Card className={`bg-[${backgroundColor}]`}>
+    <Card style={{ backgroundColor }}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">{title}</CardTitle>
-          <div className="b-1 cursor-pointer rounded-md border bg-white p-1">
-            <ArrowUpRight />
-          </div>
+          {modal ? modal() : null}
         </div>
       </CardHeader>
       <CardContent>
@@ -31,9 +32,6 @@ const FinanceOverviewCard = ({ value, title, backgroundColor }: Props) => {
           <span className="text-lg">EGP</span> {value}
         </CardDescription>
       </CardContent>
-      <CardFooter className="-mt-4 text-sm">
-        <span className="text-green-400">+2.5%&nbsp;</span>last month
-      </CardFooter>
     </Card>
   );
 };
