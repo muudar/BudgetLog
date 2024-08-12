@@ -5,6 +5,7 @@ import FinanceOverviewCard from './FinanceOverviewCard';
 import BalanceModal from './modals/BalanceModal';
 import prisma from '@/lib/db';
 import SavingsModal from './modals/SavingsModal';
+import EarningsModal from './modals/EarningsModal';
 
 type userData = any;
 
@@ -44,6 +45,12 @@ const MainDashboardCards = async () => {
         backgroundColor="#ECF5F4"
         title={'Earnings'}
         value={data?.earnings}
+        modal={() => (
+          <EarningsModal
+            currentBalance={data?.balance}
+            currentSavings={data?.savings}
+          ></EarningsModal>
+        )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
         backgroundColor="#f6d5d4"

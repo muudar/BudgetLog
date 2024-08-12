@@ -52,9 +52,7 @@ model Transaction {
 model Category {
   id          String        @default(uuid()) @unique
   name        String        @unique
-  description String?
-  emoji       String?
-  color       String?
+  emoji       String
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   userId      String
