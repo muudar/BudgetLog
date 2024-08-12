@@ -103,7 +103,7 @@ const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
                   <CardTitle>Modify Balance</CardTitle>
                   <CardDescription>
                     {
-                      "Use 'Change Balance' only for setting your initial balance or adjusting for non-transactional changes (e.g., found money). For regular updates, log your spendings or earnings instead."
+                      "Use 'Modify Balance' only for setting your initial balance or adjusting for non-transactional changes (e.g., found money). For regular updates, log your spendings or earnings instead."
                     }
                   </CardDescription>
                 </CardHeader>
