@@ -107,3 +107,47 @@ export async function transferSavings(
     revalidatePath('/dashboard');
   }
 }
+
+export async function transferBalance(
+  transferAmount: number,
+  currentBalance: number
+) {
+  try {
+    if (
+      isNaN(transferAmount) ||
+      !isFinite(transferAmount) ||
+      transferAmount > currentBalance ||
+      transferAmount <= 0
+    ) {
+      throw new Error('Invalid transfer amount');
+    }
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    const update = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        balance: {
+          decrement: transferAmount,
+        },
+        savings: {
+          increment: transferAmount,
+        },
+      },
+    });
+    if (!update) throw new Error('User not found');
+    return {
+      message: 'Successfully transferred amount.',
+      ok: true,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}

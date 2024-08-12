@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server';
 import FinanceOverviewCard from './FinanceOverviewCard';
 import BalanceModal from './modals/BalanceModal';
 import prisma from '@/lib/db';
+import SavingsModal from './modals/SavingsModal';
 
 type userData = any;
 
@@ -18,9 +19,9 @@ const MainDashboardCards = async () => {
   return (
     <>
       <FinanceOverviewCard
+        backgroundColor="#ECF5E7"
         title={'Balance'}
         value={data?.balance}
-        backgroundColor="#ECF5E7"
         modal={() => (
           <BalanceModal
             currentBalance={data?.balance}
@@ -29,19 +30,25 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        backgroundColor="#EBEFFE"
         title={'Savings'}
         value={data?.savings}
-        backgroundColor="#EBEFFE"
+        modal={() => (
+          <SavingsModal
+            currentBalance={data?.balance}
+            currentSavings={data?.savings}
+          ></SavingsModal>
+        )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        backgroundColor="#ECF5F4"
         title={'Earnings'}
         value={data?.earnings}
-        backgroundColor="#ECF5F4"
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        backgroundColor="#f6d5d4"
         title={'Spendings'}
         value={data?.spendings}
-        backgroundColor="#f6d5d4"
       ></FinanceOverviewCard>
     </>
   );

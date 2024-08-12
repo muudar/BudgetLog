@@ -44,6 +44,9 @@ const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
           toast.success(res.message);
           setOpen(false);
         }
+        if (!res.ok) {
+          toast.error(res.message || 'Internal server error');
+        }
       } catch (error) {
         toast.error(
           error instanceof Error ? error.message : 'Internal server error'
