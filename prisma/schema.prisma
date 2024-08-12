@@ -17,4 +17,47 @@ model User {
   spendings Float   @default(0.0)
   earnings  Float   @default(0.0)
   savings   Float   @default(0.0)
+  currency    String            @default("USD")
+  categories Category[]
+  transactions Transaction[]
+}
+
+enum TransactionType {
+  SPENDING
+  EARNING
+  TRANSFER
+}
+
+enum BalanceType {
+  BALANCE
+  SAVINGS
+}
+
+model Transaction {
+  id          String            @default(uuid()) @unique
+  amount      Float
+  type        TransactionType
+  to          BalanceType?
+  from        BalanceType?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  description String?
+  userId      String
+  categoryId  String
+  user        User              @relation(fields: [userId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  tags        String[]
+}
+
+model Category {
+  id          String        @default(uuid()) @unique
+  name        String        @unique
+  description String?
+  emoji       String?
+  color       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
 }
