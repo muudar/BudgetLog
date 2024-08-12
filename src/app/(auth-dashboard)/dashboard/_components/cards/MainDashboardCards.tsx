@@ -2,7 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server';
 import FinanceOverviewCard from './FinanceOverviewCard';
-import AddBalanceModal from './modals/AddBalanceModal';
+import BalanceModal from './modals/BalanceModal';
 import prisma from '@/lib/db';
 
 type userData = any;
@@ -22,7 +22,7 @@ const MainDashboardCards = async () => {
         value={data?.balance}
         backgroundColor="#ECF5E7"
         modal={() => (
-          <AddBalanceModal
+          <BalanceModal
             currentBalance={data?.balance}
             currentSavings={data?.savings}
           />

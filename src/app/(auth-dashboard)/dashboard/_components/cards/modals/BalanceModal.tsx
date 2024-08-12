@@ -27,7 +27,7 @@ type Props = {
   currentSavings: number;
 };
 
-const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
+const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
   const [newBalance, setNewBalance] = useState<number>(currentBalance);
   const [transferAmount, setTransferAmount] = useState<number>(0);
   const [open, setOpen] = useState(false);
@@ -193,4 +193,4 @@ const AddBalanceModal = ({ currentBalance, currentSavings }: Props) => {
   );
 };
 
-export default AddBalanceModal;
+export default BalanceModal;
