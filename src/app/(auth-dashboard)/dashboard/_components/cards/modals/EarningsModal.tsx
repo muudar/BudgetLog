@@ -26,8 +26,9 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { ArrowUpRight } from 'lucide-react';
-import { FormEvent, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { getCategories } from '@/actions/categories';
 import { transferBalance } from '@/actions/actions';
 import AddCategoryModal from './AddCategoryModal';
 
@@ -36,10 +37,23 @@ type Props = {
   currentSavings: number;
 };
 
+//TODO: Create category type
+type Category = any;
+
 const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
-  const categories: any[] = [];
+  const [categories, setCategories]: Category[] = useState([]);
+  console.log(categories);
   const [amount, setAmount] = useState<number>(0);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await getCategories();
+      if (res.ok && res.data) {
+        setCategories(res.data);
+      }
+    };
+    fetchCategories();
+  }, []);
   //   const handleBalanceTransfer = useCallback(
   //     async (e: FormEvent<HTMLFormElement>) => {
   //       try {
@@ -111,10 +125,12 @@ const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
                       <SelectGroup>
                         <SelectLabel>Category</SelectLabel>
                         {categories.length > 0 ? (
-                          categories.map((category) => (
-                            <SelectItem key={category} value={category}>
-                              {category.charAt(0).toUpperCase() +
-                                category.slice(1)}
+                          categories.map((category: Category) => (
+                            <SelectItem
+                              key={category.name}
+                              value={category.emoji + ' ' + category.name}
+                            >
+                              {category.emoji + ' ' + category.name}
                             </SelectItem>
                           ))
                         ) : (

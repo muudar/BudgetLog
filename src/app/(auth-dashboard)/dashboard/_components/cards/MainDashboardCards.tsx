@@ -7,6 +7,7 @@ import prisma from '@/lib/db';
 import SavingsModal from './modals/SavingsModal';
 import EarningsModal from './modals/EarningsModal';
 
+//TODO: create type for userData
 type userData = any;
 
 const MainDashboardCards = async () => {

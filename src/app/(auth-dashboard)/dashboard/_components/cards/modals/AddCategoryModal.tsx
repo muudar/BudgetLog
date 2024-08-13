@@ -12,7 +12,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import EmojiPicker from 'emoji-picker-react';
-import { addCategory } from '@/actions/actions';
+import { addCategory } from '@/actions/categories';
+import toast from 'react-hot-toast';
 
 const AddCategoryModal = () => {
   const [open, setOpen] = useState(false);
@@ -22,9 +23,29 @@ const AddCategoryModal = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await addCategory(categoryName, emoji);
-    setEmojiPickerOpen(false);
-    setOpen(false);
+
+    try {
+      toast.loading('Creating category', {
+        id: 'loading',
+      });
+      const res = await addCategory(categoryName, emoji);
+      setEmojiPickerOpen(false);
+      setOpen(false);
+      if (res.ok) {
+        toast.success(res.message);
+        setOpen(false);
+      }
+      if (!res.ok) {
+        toast.error(res.message || 'Internal server error');
+      }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Internal server error'
+      );
+      console.error(error);
+    } finally {
+      toast.remove('loading');
+    }
   };
 
   return (
