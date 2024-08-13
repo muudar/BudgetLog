@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -14,8 +14,12 @@ import EmojiPicker from 'emoji-picker-react';
 import { addCategory } from '@/actions/categories';
 import toast from 'react-hot-toast';
 
-const AddCategoryModal = () => {
-  const [open, setOpen] = useState(false);
+type Props = {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+const AddCategoryModal = ({ open, setOpen }: Props) => {
   const [categoryName, setCategoryName] = useState('');
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [emoji, setEmoji] = useState('💰');
