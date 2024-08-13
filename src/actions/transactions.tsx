@@ -23,16 +23,28 @@ export async function addEarningsRecord(data: EarningRecordData) {
       });
       if (category) categoryId = category.id;
     }
-    const earningRecord = await prisma.transaction.create({
-      data: {
-        userId: userId,
-        amount: data.amount,
-        type: 'EARNING',
-        description: data.description ?? '',
-        categoryId: categoryId ?? null,
-      },
-    });
-    if (earningRecord) {
+    const [earningRecord, increaseBalance] = await prisma.$transaction([
+      prisma.transaction.create({
+        data: {
+          userId: userId,
+          amount: data.amount,
+          type: 'EARNING',
+          description: data.description ?? '',
+          categoryId: categoryId ?? null,
+        },
+      }),
+      prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          balance: {
+            increment: data.amount,
+          },
+        },
+      }),
+    ]);
+    if (earningRecord && increaseBalance) {
       return {
         message: 'Earnings record created successfully',
         ok: true,
