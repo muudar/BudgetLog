@@ -43,10 +43,9 @@ model Transaction {
   updatedAt   DateTime          @updatedAt
   description String?
   userId      String
-  categoryId  String
+  categoryId  String?
   user        User              @relation(fields: [userId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
-  tags        String[]
+  category Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
