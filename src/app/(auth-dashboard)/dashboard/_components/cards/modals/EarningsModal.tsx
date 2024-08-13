@@ -26,10 +26,8 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { ArrowUpRight } from 'lucide-react';
-import { FormEvent, useCallback, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 import { getCategories } from '@/actions/categories';
-import { transferBalance } from '@/actions/actions';
 import AddCategoryModal from './AddCategoryModal';
 
 type Props = {

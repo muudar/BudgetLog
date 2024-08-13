@@ -1,5 +1,5 @@
 'use client';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -19,7 +19,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { ArrowUpRight } from 'lucide-react';
-import { FormEvent, useCallback, useState, useTransition } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { transferSavings, updateBalance } from '@/actions/actions';
 
 type Props = {
