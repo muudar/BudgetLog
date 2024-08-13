@@ -38,9 +38,11 @@ type Props = {
 //TODO: Create category type
 type Category = any;
 
+//TODO: Add Server action for adding earning record
+//TODO: handle emoji for server action (create emoji state)
 const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
   const [categories, setCategories]: Category[] = useState([]);
-  console.log(categories);
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [amount, setAmount] = useState<number>(0);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -51,7 +53,7 @@ const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [categoryModalOpen]);
   //   const handleBalanceTransfer = useCallback(
   //     async (e: FormEvent<HTMLFormElement>) => {
   //       try {
@@ -136,7 +138,10 @@ const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
                             No categories found
                           </div>
                         )}
-                        <AddCategoryModal></AddCategoryModal>
+                        <AddCategoryModal
+                          open={categoryModalOpen}
+                          setOpen={setCategoryModalOpen}
+                        ></AddCategoryModal>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
