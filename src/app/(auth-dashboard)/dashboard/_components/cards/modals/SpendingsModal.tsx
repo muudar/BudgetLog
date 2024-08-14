@@ -39,6 +39,8 @@ type Props = {
   currentBalance: number;
 };
 
+//TODO: Handle state reset after submit
+
 const SpendingsModal = ({ currentBalance }: Props) => {
   const [open, setOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -48,7 +50,6 @@ const SpendingsModal = ({ currentBalance }: Props) => {
     category: null,
     description: '',
   });
-  console.log(data);
   useEffect(() => {
     const fetchCategories = async () => {
       const res = await getCategories();
@@ -168,7 +169,9 @@ const SpendingsModal = ({ currentBalance }: Props) => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-end">
-              <Button>Add Record</Button>
+              <Button disabled={!data.amount || !data.category}>
+                Add Record
+              </Button>
             </CardFooter>
           </Card>
         </form>

@@ -35,6 +35,7 @@ import toast from 'react-hot-toast';
 import { addEarningsRecord } from '@/actions/transactions';
 import { Category, EarningFormData } from '@/lib/types';
 
+//TODO: Handle state reset after submit
 type Props = {
   currentBalance: number;
 };
@@ -48,7 +49,6 @@ const EarningsModal = ({ currentBalance }: Props) => {
     category: null,
     description: '',
   });
-  console.log(data);
   useEffect(() => {
     const fetchCategories = async () => {
       const res = await getCategories();
@@ -168,7 +168,9 @@ const EarningsModal = ({ currentBalance }: Props) => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-end">
-              <Button>Add Record</Button>
+              <Button disabled={!data.amount || !data.category}>
+                Add Record
+              </Button>
             </CardFooter>
           </Card>
         </form>
