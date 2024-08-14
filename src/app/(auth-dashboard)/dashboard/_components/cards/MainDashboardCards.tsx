@@ -7,6 +7,7 @@ import prisma from '@/lib/db';
 import SavingsModal from './modals/SavingsModal';
 import EarningsModal from './modals/EarningsModal';
 import { userData } from '@/lib/types';
+import SpendingsModal from './modals/SpendingsModal';
 
 const MainDashboardCards = async () => {
   const userId: string | null = auth().userId;
@@ -46,16 +47,16 @@ const MainDashboardCards = async () => {
         title={'Earnings'}
         value={data?.earnings}
         modal={() => (
-          <EarningsModal
-            currentBalance={data?.balance}
-            currentSavings={data?.savings}
-          ></EarningsModal>
+          <EarningsModal currentBalance={data?.balance}></EarningsModal>
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
         backgroundColor="#f6d5d4"
         title={'Spendings'}
         value={data?.spendings}
+        modal={() => (
+          <SpendingsModal currentBalance={data?.balance}></SpendingsModal>
+        )}
       ></FinanceOverviewCard>
     </>
   );

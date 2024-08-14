@@ -32,14 +32,14 @@ import AddCategoryModal from './AddCategoryModal';
 import { Textarea } from '@/components/ui/textarea';
 import { set } from 'date-fns';
 import toast from 'react-hot-toast';
-import { addEarningsRecord } from '@/actions/transactions';
+import { addEarningsRecord, addSpendingsRecord } from '@/actions/transactions';
 import { Category, EarningFormData } from '@/lib/types';
 
 type Props = {
   currentBalance: number;
 };
 
-const EarningsModal = ({ currentBalance }: Props) => {
+const SpendingsModal = ({ currentBalance }: Props) => {
   const [open, setOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -65,7 +65,7 @@ const EarningsModal = ({ currentBalance }: Props) => {
           id: 'loading',
         });
         e.preventDefault();
-        const res = await addEarningsRecord(data);
+        const res = await addSpendingsRecord(data);
         if (res.ok) {
           toast.success(res.message);
           setOpen(false);
@@ -93,14 +93,14 @@ const EarningsModal = ({ currentBalance }: Props) => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>Earnings</DialogTitle>
+        <DialogTitle>Spendings</DialogTitle>
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader>
-              <CardTitle>Add Earnings Record</CardTitle>
+              <CardTitle>Add Spendings Record</CardTitle>
               <CardDescription>
-                Here you can log your earnings such as wage, investments, sales,
-                etc ...
+                Here you can log your spendings such as rent, groceries,
+                entertainment, etc ...
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -110,7 +110,7 @@ const EarningsModal = ({ currentBalance }: Props) => {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <Label htmlFor="transferAmount">Earnings Amount</Label>
+                  <Label htmlFor="transferAmount">Spent Amount</Label>
                   <Input
                     id="amount"
                     type="number"
@@ -177,4 +177,4 @@ const EarningsModal = ({ currentBalance }: Props) => {
   );
 };
 
-export default EarningsModal;
+export default SpendingsModal;

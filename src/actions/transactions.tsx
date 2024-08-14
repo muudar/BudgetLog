@@ -65,3 +65,64 @@ export async function addEarningsRecord(data: EarningFormData) {
     revalidatePath('/dashboard');
   }
 }
+
+export async function addSpendingsRecord(data: EarningFormData) {
+  try {
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    if (!data) throw new Error('Missing record data');
+    let categoryId = null;
+    if (data.category) {
+      let category = await prisma.category.findFirst({
+        where: {
+          userId: userId,
+          name: data.category,
+        },
+      });
+      if (category) categoryId = category.id;
+    }
+    const [earningRecord, increaseBalance] = await prisma.$transaction([
+      prisma.transaction.create({
+        data: {
+          userId: userId,
+          amount: data.amount,
+          type: 'SPENDING',
+          description: data.description ?? '',
+          categoryId: categoryId ?? null,
+        },
+      }),
+      prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          balance: {
+            decrement: data.amount,
+          },
+          spendings: {
+            increment: data.amount,
+          },
+        },
+      }),
+    ]);
+    if (earningRecord && increaseBalance) {
+      return {
+        message: 'Spendings record created successfully',
+        ok: true,
+      };
+    } else {
+      return {
+        message: 'Failed to create spendings record',
+        ok: false,
+      };
+    }
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
