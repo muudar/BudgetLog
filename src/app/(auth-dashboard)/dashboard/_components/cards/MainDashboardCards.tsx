@@ -6,18 +6,17 @@ import BalanceModal from './modals/BalanceModal';
 import prisma from '@/lib/db';
 import SavingsModal from './modals/SavingsModal';
 import EarningsModal from './modals/EarningsModal';
-
-//TODO: create type for userData
-type userData = any;
+import { userData } from '@/lib/types';
 
 const MainDashboardCards = async () => {
   const userId: string | null = auth().userId;
   if (!userId) return null;
-  const data: userData = await prisma.user.findFirst({
+  const data: userData | null = await prisma.user.findFirst({
     where: {
       id: userId,
     },
   });
+  if (!data) return null;
   return (
     <>
       <FinanceOverviewCard

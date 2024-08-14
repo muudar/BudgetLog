@@ -1,24 +1,21 @@
 'use server';
 
 import prisma from '@/lib/db';
+import { EarningFormData } from '@/lib/types';
 import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
-//TODO: Make transaction for increasing balance with record
-//TODO: Create type for earning records
-type EarningRecordData = any;
-
-export async function addEarningsRecord(data: EarningRecordData) {
+export async function addEarningsRecord(data: EarningFormData) {
   try {
     const { userId } = auth();
     if (!userId) throw new Error('User not authenticated');
     if (!data) throw new Error('Missing record data');
     let categoryId = null;
-    if (data.pickedCategory) {
+    if (data.category) {
       let category = await prisma.category.findFirst({
         where: {
           userId: userId,
-          name: data.pickedCategory,
+          name: data.category,
         },
       });
       if (category) categoryId = category.id;

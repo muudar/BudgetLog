@@ -33,27 +33,20 @@ import { Textarea } from '@/components/ui/textarea';
 import { set } from 'date-fns';
 import toast from 'react-hot-toast';
 import { addEarningsRecord } from '@/actions/transactions';
+import { Category, EarningFormData } from '@/lib/types';
 
 type Props = {
   currentBalance: number;
   currentSavings: number;
 };
 
-// TODO: Create form data type for this form
-type FormData = any;
-
-//TODO: Create category type
-type Category = any;
-
-//TODO: Add Server action for adding earning record
-//TODO: handle emoji for server action (create emoji state)
 const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
   const [open, setOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-  const [categories, setCategories]: Category[] = useState([]);
-  const [data, setData] = useState<FormData>({
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [data, setData] = useState<EarningFormData>({
     amount: 0,
-    pickedCategory: null,
+    category: null,
     description: '',
   });
   console.log(data);
@@ -133,7 +126,7 @@ const EarningsModal = ({ currentBalance, currentSavings }: Props) => {
                   <Label htmlFor="transferAmount">Category</Label>
                   <Select
                     onValueChange={(e: string) =>
-                      setData({ ...data, pickedCategory: e })
+                      setData({ ...data, category: e })
                     }
                   >
                     <SelectTrigger>
