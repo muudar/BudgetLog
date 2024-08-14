@@ -9,6 +9,12 @@ const page = () => {
       <div className="b-1 flex h-full w-full items-center justify-center border border-red-500 lg:col-span-2">
         CHART
       </div>
+      <div className="b-1 flex h-full w-full items-center justify-center border border-red-500 lg:col-span-2">
+        RECENT TRANSACTIONS
+      </div>
+      <div className="b-1 flex h-full w-full items-center justify-center border border-red-500 lg:col-span-3">
+        SPENDING ANALYSIS
+      </div>
     </>
   );
 };
