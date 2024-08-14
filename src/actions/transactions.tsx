@@ -236,3 +236,37 @@ export async function transferBalance(
     revalidatePath('/dashboard');
   }
 }
+
+export async function getRecentTransactions() {
+  try {
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    const recentTransactions = await prisma.transaction.findMany({
+      where: {
+        userId: userId,
+      },
+      orderBy: {
+        createdAt: 'desc', // Sorts by 'createdAt' in descending order
+      },
+      take: 6,
+    });
+    if (recentTransactions) {
+      return {
+        data: recentTransactions,
+        ok: true,
+      };
+    }
+    return {
+      message: 'Could not get recent transactions',
+      ok: false,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
