@@ -20,7 +20,7 @@ const FinanceOverviewCard = ({
   modal,
 }: Props) => {
   return (
-    <Card style={{ backgroundColor }}>
+    <Card className={backgroundColor}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">{title}</CardTitle>

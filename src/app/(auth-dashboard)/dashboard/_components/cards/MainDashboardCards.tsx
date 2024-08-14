@@ -21,7 +21,7 @@ const MainDashboardCards = async () => {
   return (
     <>
       <FinanceOverviewCard
-        backgroundColor="#ECF5E7"
+        backgroundColor="bg-balanceBg"
         title={'Balance'}
         value={data?.balance}
         modal={() => (
@@ -32,7 +32,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        backgroundColor="#EBEFFE"
+        backgroundColor="bg-savingsBg"
         title={'Savings'}
         value={data?.savings}
         modal={() => (
@@ -43,7 +43,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        backgroundColor="#ECF5F4"
+        backgroundColor="bg-earningsBg"
         title={'Earnings'}
         value={data?.earnings}
         modal={() => (
@@ -51,7 +51,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        backgroundColor="#f6d5d4"
+        backgroundColor="bg-spendingsBg"
         title={'Spendings'}
         value={data?.spendings}
         modal={() => (
