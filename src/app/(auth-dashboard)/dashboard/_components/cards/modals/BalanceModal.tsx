@@ -20,7 +20,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { ArrowUpRight } from 'lucide-react';
 import { FormEvent, useCallback, useState } from 'react';
-import { transferSavings, updateBalance } from '@/actions/actions';
+import { updateBalance } from '@/actions/actions';
+import { transferSavings } from '@/actions/transactions';
 
 type Props = {
   currentBalance: number;

@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowUpRight } from 'lucide-react';
 import { FormEvent, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { transferBalance } from '@/actions/actions';
+import { transferBalance } from '@/actions/transactions';
 
 type Props = {
   currentBalance: number;

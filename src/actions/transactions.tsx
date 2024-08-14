@@ -126,3 +126,113 @@ export async function addSpendingsRecord(data: EarningFormData) {
     revalidatePath('/dashboard');
   }
 }
+
+export async function transferSavings(
+  transferAmount: number,
+  currentSavings: number
+) {
+  try {
+    if (
+      isNaN(transferAmount) ||
+      !isFinite(transferAmount) ||
+      transferAmount > currentSavings ||
+      transferAmount <= 0
+    ) {
+      throw new Error('Invalid transfer amount');
+    }
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    const [transferRecord, update] = await prisma.$transaction([
+      prisma.transaction.create({
+        data: {
+          userId: userId,
+          amount: transferAmount,
+          to: 'BALANCE',
+          from: 'SAVINGS',
+          type: 'TRANSFER',
+        },
+      }),
+      prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          balance: {
+            increment: transferAmount,
+          },
+          savings: {
+            decrement: transferAmount,
+          },
+        },
+      }),
+    ]);
+    if (!update || !transferRecord) throw new Error('Internal server error');
+    return {
+      message: 'Successfully transferred amount.',
+      ok: true,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
+
+export async function transferBalance(
+  transferAmount: number,
+  currentBalance: number
+) {
+  try {
+    if (
+      isNaN(transferAmount) ||
+      !isFinite(transferAmount) ||
+      transferAmount > currentBalance ||
+      transferAmount <= 0
+    ) {
+      throw new Error('Invalid transfer amount');
+    }
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    const [transferRecord, update] = await prisma.$transaction([
+      prisma.transaction.create({
+        data: {
+          userId: userId,
+          amount: transferAmount,
+          from: 'BALANCE',
+          to: 'SAVINGS',
+          type: 'TRANSFER',
+        },
+      }),
+      prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          balance: {
+            decrement: transferAmount,
+          },
+          savings: {
+            increment: transferAmount,
+          },
+        },
+      }),
+    ]);
+    if (!update || !transferRecord) throw new Error('Internal server error');
+    return {
+      message: 'Successfully transferred amount.',
+      ok: true,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
