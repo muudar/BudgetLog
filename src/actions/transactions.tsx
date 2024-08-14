@@ -38,6 +38,9 @@ export async function addEarningsRecord(data: EarningFormData) {
           balance: {
             increment: data.amount,
           },
+          earnings: {
+            increment: data.amount,
+          },
         },
       }),
     ]);
