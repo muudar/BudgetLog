@@ -19,9 +19,9 @@ const config = {
     },
     extend: {
       colors: {
-        balanceBg: '#ECF5E7',
+        balanceBg: '#ECF5F4',
         savingsBg: '#EBEFFE',
-        earningsBg: '#ECF5F4',
+        earningsBg: '#ECF5E7',
         spendingsBg: '#f6d5d4',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
