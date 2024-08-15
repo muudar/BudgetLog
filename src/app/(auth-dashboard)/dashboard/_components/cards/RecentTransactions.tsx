@@ -23,7 +23,7 @@ const RecentTransactions = async () => {
   });
   //TODO: Fix currency everywhere
   return (
-    <Card>
+    <Card className="bg-muted/40">
       <CardHeader>
         <CardTitle className="text-xl">Recent Transactions</CardTitle>
       </CardHeader>
