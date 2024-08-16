@@ -21,7 +21,7 @@ const config = {
       colors: {
         balanceBg: '#ECF5F4',
         savingsBg: '#EBEFFE',
-        earningsBg: '#ECF5E7',
+        earningsBg: '#D8F3D6',
         spendingsBg: '#f6d5d4',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

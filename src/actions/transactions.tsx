@@ -4,6 +4,7 @@ import prisma from '@/lib/db';
 import { EarningFormData } from '@/lib/types';
 import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
+import { subDays, startOfDay, format, eachDayOfInterval } from 'date-fns';
 
 export async function addEarningsRecord(data: EarningFormData) {
   try {
@@ -372,5 +373,79 @@ export async function getTopEarningsCategories() {
     };
   } finally {
     revalidatePath('/dashboard');
+  }
+}
+
+export async function getLast7DaysTransactions() {
+  const { userId } = auth();
+
+  try {
+    if (!userId) throw new Error('User not authenticated');
+
+    const today = new Date();
+    const sevenDaysAgo = subDays(today, 7);
+
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        userId,
+        createdAt: {
+          gte: startOfDay(sevenDaysAgo), // Starting from 7 days ago
+        },
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    // Initialize an array to store the last 7 days with day of the week
+    const last7Days = eachDayOfInterval({
+      start: sevenDaysAgo,
+      end: subDays(today, 1),
+    }).map((date) => ({
+      day: format(date, 'EEEE'),
+      spending: 0,
+      earning: 0,
+    }));
+
+    // Initialize a map to store earnings and spendings by day of the week
+    const dailyData: { [day: string]: { spending: number; earning: number } } =
+      {};
+
+    transactions.forEach((transaction) => {
+      const dayOfWeek = format(transaction.createdAt, 'EEEE');
+
+      // If the day doesn't exist in the dailyData map, initialize it
+      if (!dailyData[dayOfWeek]) {
+        dailyData[dayOfWeek] = { spending: 0, earning: 0 };
+      }
+
+      // Add to the appropriate category (spending or earning)
+      if (transaction.type === 'SPENDING') {
+        dailyData[dayOfWeek].spending += transaction.amount;
+      } else if (transaction.type === 'EARNING') {
+        dailyData[dayOfWeek].earning += transaction.amount;
+      }
+    });
+
+    const chartData = last7Days.map((dayData) => {
+      const { day } = dayData;
+      const { spending = 0, earning = 0 } = dailyData[day] || {};
+      return {
+        day,
+        spending,
+        earning,
+      };
+    });
+
+    return {
+      data: chartData,
+      ok: true,
+    };
+  } catch (err) {
+    console.error('Failed to get transactions for the last 7 days', err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
   }
 }

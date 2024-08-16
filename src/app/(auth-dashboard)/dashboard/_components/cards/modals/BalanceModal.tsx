@@ -70,7 +70,7 @@ const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
         e.preventDefault();
         res = await updateBalance(newBalance);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         toast.remove('loading');
         if (res?.ok) {

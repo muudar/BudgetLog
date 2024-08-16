@@ -13,7 +13,6 @@ const SpendingsAndEarnings = async () => {
   }
   let spendingsData = spendingsRes.data;
   let earningsData = earningsRes.data;
-  console.log(spendingsData);
   return (
     <>
       <CategoryCardsGrouper

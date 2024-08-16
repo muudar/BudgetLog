@@ -13,6 +13,9 @@ type Props = {
   modal?: () => JSX.Element;
 };
 
+//TODO: Add more data to overview cards, too much empty space
+//TODO: OR make chart smaller
+
 const FinanceOverviewCard = ({
   value,
   title,
@@ -20,7 +23,7 @@ const FinanceOverviewCard = ({
   modal,
 }: Props) => {
   return (
-    <Card className={backgroundColor}>
+    <Card className={`${backgroundColor} lg:h-[172px] xl:h-[200px]`}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">{title}</CardTitle>

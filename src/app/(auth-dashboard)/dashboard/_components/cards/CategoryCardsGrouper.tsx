@@ -16,7 +16,7 @@ type Props = {
 
 const CategoryCardsGrouper = ({ backgroundColor, title, data }: Props) => {
   return (
-    <Card className="bg-muted/40">
+    <Card className="bg-muted/40 lg:h-[200px]">
       <CardHeader>
         <CardTitle className="text-xl">{title}</CardTitle>
       </CardHeader>
