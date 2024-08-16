@@ -14,7 +14,7 @@ const page = () => {
       <div className="rounded-md border lg:col-span-2">
         <RecentTransactions></RecentTransactions>
       </div>
-      <div className="flex h-full flex-col justify-between space-y-3 lg:col-span-3">
+      <div className="flex h-full flex-col justify-between lg:col-span-3">
         <SpendingsAndEarnings></SpendingsAndEarnings>
       </div>
     </>
