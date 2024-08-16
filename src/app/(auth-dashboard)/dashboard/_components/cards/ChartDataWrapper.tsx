@@ -8,7 +8,6 @@ const ChartDataWrapper = async () => {
     return null;
   }
   const data = res.data;
-  console.log(data);
   return <HomeSpendingChart data={data || []}></HomeSpendingChart>;
 };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ChartConfig,
   ChartContainer,
@@ -10,6 +10,45 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+
+import { Check, ChevronsUpDown } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+const options = [
+  { value: 'BOTH', label: 'Both' },
+  {
+    value: `Spending`,
+    label: 'Spendings',
+  },
+  {
+    value: 'Earnings',
+    label: 'Earning',
+  },
+];
 
 const chartConfig = {
   earning: {
@@ -24,7 +63,6 @@ const chartConfig = {
 
 //TODO: Get data from db By month
 //TODO: Add (month or week) picker
-//TODO: Add (spending or earning or both picker)
 
 type WeekChartData = {
   day: string;
@@ -35,15 +73,37 @@ type WeekChartData = {
 type Props = {
   data: WeekChartData[];
 };
+
 const HomeSpendingChart = ({ data }: Props) => {
+  const [option, setOption] = useState('BOTH');
   return (
     <>
-      <div className="mx-2 mb-6 text-xl font-bold">Analysis Chart</div>
+      <div className="mx-2 mb-6 flex items-center justify-between">
+        <div className="text-xl font-bold">Analysis Chart</div>
+        <div className="w-[120px] bg-muted/40">
+          <Select
+            defaultValue="BOTH"
+            onValueChange={(e: string) => setOption(e)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select option" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select option</SelectLabel>
+                <SelectItem value="BOTH">Both</SelectItem>
+                <SelectItem value="SPENDINGS">Spendings</SelectItem>
+                <SelectItem value="EARNINGS">Earnings</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="month"
+            dataKey="day"
             tickLine={false}
             tickMargin={10}
             axisLine={false}
@@ -52,8 +112,12 @@ const HomeSpendingChart = ({ data }: Props) => {
           <YAxis orientation="left" />
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="spending" fill="var(--color-spending)" radius={4} />
-          <Bar dataKey="earning" fill="var(--color-earning)" radius={4} />
+          {(option == 'BOTH' || option == 'SPENDINGS') && (
+            <Bar dataKey="spending" fill="var(--color-spending)" radius={4} />
+          )}
+          {(option == 'BOTH' || option == 'EARNINGS') && (
+            <Bar dataKey="earning" fill="var(--color-earning)" radius={4} />
+          )}
         </BarChart>
       </ChartContainer>
     </>
