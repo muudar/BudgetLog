@@ -270,3 +270,107 @@ export async function getRecentTransactions() {
     revalidatePath('/dashboard');
   }
 }
+
+export async function getTopSpendingCategories() {
+  const { userId } = auth();
+
+  try {
+    if (!userId) throw new Error('User not authenticated');
+
+    let transactions = await prisma.transaction.findMany({
+      where: {
+        userId,
+        type: 'SPENDING', // Filter by spending transactions
+      },
+      include: {
+        category: true, // Include the category details
+      },
+    });
+
+    // Group by category and sum the amounts
+    let categorySpendingMap: {
+      [key: string]: { name: string; emoji: string; totalAmount: number };
+    } = {};
+
+    transactions.forEach((transaction) => {
+      const categoryId = transaction.categoryId;
+      if (categoryId && transaction.category) {
+        const { name, emoji } = transaction.category;
+        if (!categorySpendingMap[categoryId]) {
+          categorySpendingMap[categoryId] = { name, emoji, totalAmount: 0 };
+        }
+        categorySpendingMap[categoryId].totalAmount += transaction.amount;
+      }
+    });
+
+    // Convert the map to an array and sort by totalAmount in descending order
+    let sortedCategories = Object.values(categorySpendingMap)
+      .sort((a, b) => b.totalAmount - a.totalAmount)
+      .slice(0, 6); // Limit to 6 categories
+
+    return {
+      data: sortedCategories,
+      ok: true,
+    };
+  } catch (err) {
+    console.error('Failed to get top spending categories', err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
+
+export async function getTopEarningsCategories() {
+  const { userId } = auth();
+
+  try {
+    if (!userId) throw new Error('User not authenticated');
+
+    let transactions = await prisma.transaction.findMany({
+      where: {
+        userId,
+        type: 'EARNING', // Filter by earning transactions
+      },
+      include: {
+        category: true, // Include the category details
+      },
+    });
+
+    // Group by category and sum the amounts
+    let categoryEarningMap: {
+      [key: string]: { name: string; emoji: string; totalAmount: number };
+    } = {};
+
+    transactions.forEach((transaction) => {
+      const categoryId = transaction.categoryId;
+      if (categoryId && transaction.category) {
+        const { name, emoji } = transaction.category;
+        if (!categoryEarningMap[categoryId]) {
+          categoryEarningMap[categoryId] = { name, emoji, totalAmount: 0 };
+        }
+        categoryEarningMap[categoryId].totalAmount += transaction.amount;
+      }
+    });
+
+    // Convert the map to an array and sort by totalAmount in descending order
+    let sortedCategories = Object.values(categoryEarningMap)
+      .sort((a, b) => b.totalAmount - a.totalAmount)
+      .slice(0, 6); // Limit to 6 categories
+
+    return {
+      data: sortedCategories,
+      ok: true,
+    };
+  } catch (err) {
+    console.error('Failed to get top spending categories', err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard');
+  }
+}
