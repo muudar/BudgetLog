@@ -94,7 +94,7 @@ const EarningsModal = ({ currentBalance }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Earnings</DialogTitle>
-        <form onSubmit={handleSubmit}>
+        <form name="earnings" id="earnings" onSubmit={handleSubmit}>
           <Card>
             <CardHeader>
               <CardTitle>Add Earnings Record</CardTitle>
@@ -168,7 +168,7 @@ const EarningsModal = ({ currentBalance }: Props) => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-end">
-              <Button disabled={!data.amount || !data.category}>
+              <Button form="earnings" disabled={!data.amount || !data.category}>
                 Add Record
               </Button>
             </CardFooter>

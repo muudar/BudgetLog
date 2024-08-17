@@ -26,7 +26,7 @@ const AddCategoryModal = ({ open, setOpen }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    e.stopPropagation();
     try {
       toast.loading('Creating category', {
         id: 'loading',
@@ -58,7 +58,7 @@ const AddCategoryModal = ({ open, setOpen }: Props) => {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={handleSubmit}>
+        <form name="category" id="category" onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add category</DialogTitle>
           </DialogHeader>
@@ -96,11 +96,18 @@ const AddCategoryModal = ({ open, setOpen }: Props) => {
             <div className="flex justify-center gap-2">
               <Button
                 type="button"
-                onClick={() => setEmojiPickerOpen((prev) => !prev)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEmojiPickerOpen((prev) => !prev);
+                }}
               >
                 Emoji picker
               </Button>
-              <Button type="submit" disabled={!categoryName || !emoji}>
+              <Button
+                type="submit"
+                form="category"
+                disabled={!categoryName || !emoji}
+              >
                 Add Category
               </Button>
             </div>

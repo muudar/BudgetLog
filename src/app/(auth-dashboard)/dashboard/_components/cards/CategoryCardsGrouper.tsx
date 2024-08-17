@@ -32,7 +32,9 @@ const CategoryCardsGrouper = ({ backgroundColor, title, data }: Props) => {
             ></CategoryCard>
           ))
         ) : (
-          <div>Error fetching Data</div>
+          <div className="col-span-6 flex items-center justify-center text-lg">
+            No transactions found.
+          </div>
         )}
       </CardContent>
     </Card>
