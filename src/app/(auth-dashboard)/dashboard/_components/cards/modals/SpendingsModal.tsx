@@ -39,8 +39,6 @@ type Props = {
   currentBalance: number;
 };
 
-//TODO: Handle state reset after submit
-
 const SpendingsModal = ({ currentBalance }: Props) => {
   const [open, setOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);

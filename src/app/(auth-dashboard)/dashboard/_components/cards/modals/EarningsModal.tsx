@@ -35,7 +35,6 @@ import toast from 'react-hot-toast';
 import { addEarningsRecord } from '@/actions/transactions';
 import { Category, EarningFormData } from '@/lib/types';
 
-//TODO: Handle state reset after submit
 type Props = {
   currentBalance: number;
 };

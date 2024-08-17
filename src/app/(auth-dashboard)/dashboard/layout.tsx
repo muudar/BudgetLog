@@ -5,6 +5,7 @@ import React from 'react';
 import DesktopNav from './_components/DesktopNav';
 import MobileNav from './_components/MobileNav';
 
+//TODO: make current page highlited in navbar
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
