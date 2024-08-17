@@ -407,6 +407,8 @@ export async function getLast7DaysTransactions() {
       earning: 0,
     }));
 
+    last7Days.push(last7Days.shift()!);
+
     // Initialize a map to store earnings and spendings by day of the week
     const dailyData: { [day: string]: { spending: number; earning: number } } =
       {};
