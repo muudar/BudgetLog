@@ -70,6 +70,11 @@ const SpendingsModal = ({ currentBalance }: Props) => {
         if (res.ok) {
           toast.success(res.message);
           setOpen(false);
+          setData({
+            amount: 0,
+            category: null,
+            description: '',
+          });
         }
         if (!res.ok) {
           toast.error(res.message || 'Internal server error');
@@ -114,6 +119,7 @@ const SpendingsModal = ({ currentBalance }: Props) => {
                   <Label htmlFor="transferAmount">Spent Amount</Label>
                   <Input
                     id="amount"
+                    value={data.amount}
                     type="number"
                     step="0.01"
                     min={0.01}
@@ -128,6 +134,7 @@ const SpendingsModal = ({ currentBalance }: Props) => {
                     onValueChange={(e: string) =>
                       setData({ ...data, category: e })
                     }
+                    value={data.category || undefined}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a category" />
@@ -164,6 +171,7 @@ const SpendingsModal = ({ currentBalance }: Props) => {
                     onChange={(e) =>
                       setData({ ...data, description: e.target.value })
                     }
+                    value={data.description}
                   ></Textarea>
                 </div>
               </div>
