@@ -1,8 +1,17 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import React from 'react';
 
-const MainCardLoader = () => {
-  return <Skeleton className="h-[150px] w-full bg-slate-200"></Skeleton>;
+type Props = {
+  normalHeight: number;
+  largeHeight: number;
+  xLargeHeight: number;
+};
+const MainCardLoader = ({ normalHeight, largeHeight, xLargeHeight }: Props) => {
+  return (
+    <Skeleton
+      className={`h-[${normalHeight}px] w-full bg-slate-200 lg:h-[${largeHeight}px] xl:h-[${xLargeHeight}px]`}
+    ></Skeleton>
+  );
 };
 
 export default MainCardLoader;

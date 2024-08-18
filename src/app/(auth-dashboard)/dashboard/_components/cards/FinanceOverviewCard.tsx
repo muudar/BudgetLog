@@ -23,7 +23,7 @@ const FinanceOverviewCard = ({
   modal,
 }: Props) => {
   return (
-    <Card className={`${backgroundColor} lg:h-[172px] xl:h-[200px]`}>
+    <Card className={`${backgroundColor} lg:h-[172px] xl:h-[197px]`}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">{title}</CardTitle>

@@ -11,6 +11,7 @@ import SpendingsModal from './modals/SpendingsModal';
 
 const MainDashboardCards = async () => {
   const userId: string | null = auth().userId;
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   if (!userId) return null;
   const data: userData | null = await prisma.user.findFirst({
     where: {
