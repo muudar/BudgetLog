@@ -6,6 +6,12 @@ import React from 'react';
 const RecentTransactions = async () => {
   const { userId } = auth();
   if (!userId) return null;
+  const userData = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+  if (!userData) return null;
   const recentTransactions = await prisma.transaction.findMany({
     where: {
       userId: userId,
@@ -21,7 +27,6 @@ const RecentTransactions = async () => {
     },
     take: 6,
   });
-  //TODO: Fix currency everywhere
   return (
     <Card className="bg-muted/40 lg:h-[420px]">
       <CardHeader>
@@ -54,7 +59,8 @@ const RecentTransactions = async () => {
               >
                 {(transaction.type == 'SPENDING' ? '-' : '+') +
                   transaction.amount +
-                  ' EGP'}
+                  ' ' +
+                  userData.currency}
               </div>
             </div>
           ))

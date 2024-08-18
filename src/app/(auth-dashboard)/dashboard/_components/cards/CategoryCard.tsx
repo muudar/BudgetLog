@@ -5,6 +5,7 @@ type Props = {
   emoji: string;
   backgroundColor: string;
   value: number;
+  currency: string;
 };
 
 const CategoryCard = ({
@@ -12,6 +13,7 @@ const CategoryCard = ({
   value,
   emoji,
   categoryName,
+  currency,
 }: Props) => {
   return (
     <div
@@ -19,7 +21,9 @@ const CategoryCard = ({
     >
       <div className="text-sm">{emoji}</div>
       <div className="text-sm">{categoryName}</div>
-      <div className="text-sm font-bold">{value} EGP</div>
+      <div className="text-sm font-bold">
+        {value} {currency}
+      </div>
     </div>
   );
 };

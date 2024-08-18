@@ -10,6 +10,7 @@ type Props = {
   value: number;
   title: string;
   backgroundColor: string;
+  currency: string;
   modal?: () => JSX.Element;
 };
 
@@ -21,6 +22,7 @@ const FinanceOverviewCard = ({
   title,
   backgroundColor,
   modal,
+  currency,
 }: Props) => {
   return (
     <Card className={`${backgroundColor} lg:h-[172px] xl:h-[197px]`}>
@@ -32,7 +34,7 @@ const FinanceOverviewCard = ({
       </CardHeader>
       <CardContent>
         <CardDescription className="-mt-4 flex items-center gap-1 text-2xl font-bold text-neutral-900">
-          <span className="text-lg">EGP</span> {value}
+          <span className="text-lg">{currency}</span> {value}
         </CardDescription>
       </CardContent>
     </Card>

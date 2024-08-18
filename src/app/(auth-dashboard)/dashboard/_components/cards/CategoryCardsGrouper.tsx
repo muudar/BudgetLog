@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import React from 'react';
 import CategoryCard from './CategoryCard';
+import prisma from '@/lib/db';
+import { auth } from '@clerk/nextjs/server';
 
 type CategoryData = {
   name: string;
@@ -14,7 +16,19 @@ type Props = {
   data: CategoryData[];
 };
 
-const CategoryCardsGrouper = ({ backgroundColor, title, data }: Props) => {
+const CategoryCardsGrouper = async ({
+  backgroundColor,
+  title,
+  data,
+}: Props) => {
+  const { userId } = auth();
+  if (!userId) return null;
+  const userData = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+  if (!userData) return null;
   return (
     <Card className="bg-muted/40 lg:h-[200px]">
       <CardHeader>
@@ -24,6 +38,7 @@ const CategoryCardsGrouper = ({ backgroundColor, title, data }: Props) => {
         {data.length > 0 ? (
           data.map((category) => (
             <CategoryCard
+              currency={userData?.currency}
               key={category.name}
               value={category.totalAmount}
               categoryName={category.name}

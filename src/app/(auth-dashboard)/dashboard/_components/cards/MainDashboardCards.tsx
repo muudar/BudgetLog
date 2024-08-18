@@ -22,6 +22,7 @@ const MainDashboardCards = async () => {
   return (
     <>
       <FinanceOverviewCard
+        currency={data?.currency}
         backgroundColor="bg-balanceBg"
         title={'Balance'}
         value={data?.balance}
@@ -33,6 +34,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        currency={data?.currency}
         backgroundColor="bg-savingsBg"
         title={'Savings'}
         value={data?.savings}
@@ -44,6 +46,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        currency={data?.currency}
         backgroundColor="bg-earningsBg"
         title={'Earnings'}
         value={data?.earnings}
@@ -52,6 +55,7 @@ const MainDashboardCards = async () => {
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
+        currency={data?.currency}
         backgroundColor="bg-spendingsBg"
         title={'Spendings'}
         value={data?.spendings}
