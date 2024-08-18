@@ -1,4 +1,10 @@
-import { Home, Settings, User, CreditCard } from 'lucide-react'; // Adjust the imports as needed
+import {
+  Home,
+  Settings,
+  User,
+  CreditCard,
+  BadgeDollarSign,
+} from 'lucide-react'; // Adjust the imports as needed
 
 export const NAV_LINKS = [
   {
@@ -7,18 +13,8 @@ export const NAV_LINKS = [
     icon: Home,
   },
   {
-    href: '/profile',
-    label: 'Profile',
-    icon: User,
-  },
-  {
-    href: '/settings',
-    label: 'Settings',
-    icon: Settings,
-  },
-  {
-    href: '/billing',
-    label: 'Billing',
-    icon: CreditCard,
+    href: '/dashboard/transactions',
+    label: 'Transactions',
+    icon: BadgeDollarSign,
   },
 ];
