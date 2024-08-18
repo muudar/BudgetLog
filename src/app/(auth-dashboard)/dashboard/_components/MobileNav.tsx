@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { NAV_LINKS } from '@/lib/constants';
 import { Home, Package2, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -21,13 +22,18 @@ const MobileNav = () => {
             <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
             <span className="sr-only">Acme Inc</span>
           </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-          >
-            <Home className="h-5 w-5" />
-            Dashboard
-          </Link>
+          <>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+              >
+                <link.icon className="h-5 w-5" />
+                {link.label}
+              </Link>
+            ))}
+          </>
         </nav>
       </SheetContent>
     </Sheet>
