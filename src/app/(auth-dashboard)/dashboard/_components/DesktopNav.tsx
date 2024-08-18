@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Tooltip,
   TooltipContent,
@@ -6,10 +8,12 @@ import {
 } from '@/components/ui/tooltip';
 import { NAV_LINKS } from '@/lib/constants';
 
-import { Home, Package2 } from 'lucide-react';
+import { Package2 } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const DesktopNav = () => {
+  const pathname = usePathname();
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -20,22 +24,27 @@ const DesktopNav = () => {
           <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
           <span className="sr-only">Acme Inc</span>
         </Link>
-        {NAV_LINKS.map((link) => (
-          <TooltipProvider key={link.href}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href={link.href}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <link.icon className="h-5 w-5" />
-                  <span className="sr-only">{link.label}</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">{link.label}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <TooltipProvider key={link.href}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={link.href}
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
+                      isActive ? 'text-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    <link.icon className="h-5 w-5" />
+                    <span className="sr-only">{link.label}</span>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">{link.label}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          );
+        })}
       </nav>
     </aside>
   );
