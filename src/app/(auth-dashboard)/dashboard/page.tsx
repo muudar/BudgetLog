@@ -10,7 +10,7 @@ const page = () => {
       <div className="grid grid-cols-2 grid-rows-2 gap-2 lg:col-span-3">
         <MainDashboardCards></MainDashboardCards>
       </div>
-      <div className="flex w-full flex-col justify-center border p-4 lg:col-span-2 lg:h-[350px] xl:h-[400px]">
+      <div className="flex w-full flex-col justify-center border py-4 md:px-4 lg:col-span-2 lg:h-[350px] xl:h-[400px]">
         <ChartDataWrapper></ChartDataWrapper>
       </div>
       <div className="rounded-md border lg:col-span-2">

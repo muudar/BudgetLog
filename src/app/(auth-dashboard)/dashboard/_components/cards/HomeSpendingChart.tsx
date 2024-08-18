@@ -99,7 +99,7 @@ const HomeSpendingChart = ({ data }: Props) => {
           </Select>
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <ChartContainer config={chartConfig} className="min-h-[200px] md:w-full">
         <BarChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
           <XAxis
