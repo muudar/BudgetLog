@@ -3,15 +3,9 @@ import prisma from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import React from 'react';
 
-const RecentTransactions = async () => {
+const RecentTransactions = async ({ currency }: { currency: string }) => {
   const { userId } = auth();
   if (!userId) return null;
-  const userData = await prisma.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
-  if (!userData) return null;
   const recentTransactions = await prisma.transaction.findMany({
     where: {
       userId: userId,
@@ -60,7 +54,7 @@ const RecentTransactions = async () => {
                 {(transaction.type == 'SPENDING' ? '-' : '+') +
                   transaction.amount +
                   ' ' +
-                  userData.currency}
+                  currency}
               </div>
             </div>
           ))

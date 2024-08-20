@@ -9,58 +9,49 @@ import EarningsModal from './modals/EarningsModal';
 import { userData } from '@/lib/types';
 import SpendingsModal from './modals/SpendingsModal';
 
-const MainDashboardCards = async () => {
-  const userId: string | null = auth().userId;
-  await new Promise((resolve) => setTimeout(resolve, 10000));
-  if (!userId) return null;
-  const data: userData | null = await prisma.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
-  if (!data) return null;
+const MainDashboardCards = async ({ userData }: { userData: userData }) => {
   return (
     <>
       <FinanceOverviewCard
-        currency={data?.currency}
+        currency={userData?.currency}
         backgroundColor="bg-balanceBg"
         title={'Balance'}
-        value={data?.balance}
+        value={userData?.balance}
         modal={() => (
           <BalanceModal
-            currentBalance={data?.balance}
-            currentSavings={data?.savings}
+            currentBalance={userData?.balance}
+            currentSavings={userData?.savings}
           />
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        currency={data?.currency}
+        currency={userData?.currency}
         backgroundColor="bg-savingsBg"
         title={'Savings'}
-        value={data?.savings}
+        value={userData?.savings}
         modal={() => (
           <SavingsModal
-            currentBalance={data?.balance}
-            currentSavings={data?.savings}
+            currentBalance={userData?.balance}
+            currentSavings={userData?.savings}
           ></SavingsModal>
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        currency={data?.currency}
+        currency={userData?.currency}
         backgroundColor="bg-earningsBg"
         title={'Earnings'}
-        value={data?.earnings}
+        value={userData?.earnings}
         modal={() => (
-          <EarningsModal currentBalance={data?.balance}></EarningsModal>
+          <EarningsModal currentBalance={userData?.balance}></EarningsModal>
         )}
       ></FinanceOverviewCard>
       <FinanceOverviewCard
-        currency={data?.currency}
+        currency={userData?.currency}
         backgroundColor="bg-spendingsBg"
         title={'Spendings'}
-        value={data?.spendings}
+        value={userData?.spendings}
         modal={() => (
-          <SpendingsModal currentBalance={data?.balance}></SpendingsModal>
+          <SpendingsModal currentBalance={userData?.balance}></SpendingsModal>
         )}
       ></FinanceOverviewCard>
     </>

@@ -14,21 +14,15 @@ type Props = {
   backgroundColor: string;
   title: string;
   data: CategoryData[];
+  currency: string;
 };
 
 const CategoryCardsGrouper = async ({
   backgroundColor,
   title,
   data,
+  currency,
 }: Props) => {
-  const { userId } = auth();
-  if (!userId) return null;
-  const userData = await prisma.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
-  if (!userData) return null;
   return (
     <Card className="bg-muted/40 lg:h-[200px]">
       <CardHeader>
@@ -38,7 +32,7 @@ const CategoryCardsGrouper = async ({
         {data.length > 0 ? (
           data.map((category) => (
             <CategoryCard
-              currency={userData?.currency}
+              currency={currency}
               key={category.name}
               value={category.totalAmount}
               categoryName={category.name}
