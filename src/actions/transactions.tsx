@@ -128,6 +128,75 @@ export async function addSpendingsRecord(data: EarningFormData) {
   }
 }
 
+export async function deleteTransaction(id: string) {
+  try {
+    const { userId } = auth();
+    if (!userId) throw new Error('User not authenticated');
+    if (!id) throw new Error('Missing record id');
+
+    const transaction = await prisma.transaction.findFirst({
+      where: { id },
+    });
+    if (!transaction) throw new Error('Transaction not found');
+
+    const operations = [];
+    if (transaction.type === 'SPENDING') {
+      operations.push(
+        prisma.user.update({
+          where: { id: userId },
+          data: {
+            balance: {
+              increment: transaction.amount,
+            },
+            spendings: {
+              decrement: transaction.amount,
+            },
+          },
+        })
+      );
+    } else if (transaction.type === 'EARNING') {
+      operations.push(
+        prisma.user.update({
+          where: { id: userId },
+          data: {
+            balance: {
+              decrement: transaction.amount,
+            },
+            earnings: {
+              decrement: transaction.amount,
+            },
+          },
+        })
+      );
+    }
+
+    const [deleteRecord, changeBalance] = await prisma.$transaction([
+      prisma.transaction.delete({ where: { id } }),
+      ...operations,
+    ]);
+
+    if (deleteRecord && changeBalance) {
+      return {
+        message: 'Transaction deleted and balance updated successfully',
+        ok: true,
+      };
+    } else {
+      return {
+        message: 'Failed to delete transaction or update balance',
+        ok: false,
+      };
+    }
+  } catch (err) {
+    console.error(err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  } finally {
+    revalidatePath('/dashboard/transactions');
+  }
+}
+
 export async function transferSavings(
   transferAmount: number,
   currentSavings: number

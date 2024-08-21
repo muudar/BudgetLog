@@ -17,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { DeleteTransactionModal } from './DeleteTransactionModal';
 
 type Category = {
   id: string;
@@ -48,7 +49,30 @@ export const columns: ColumnDef<Transaction>[] = [
       return type == 'SPENDING' ? (
         <div className="fon-bold text-red-500">SPENDING</div>
       ) : (
-        <div className="font-bold text-green-500">EARNINGZ</div>
+        <div className="font-bold text-green-500">EARNING</div>
+      );
+    },
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    cell: ({ row }) => {
+      const description: string = row.getValue('description');
+      return description ? (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <div className="w-[100px] truncate text-left text-sm text-slate-400">
+                {description}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{description}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        <div>None</div>
       );
     },
   },
@@ -57,7 +81,6 @@ export const columns: ColumnDef<Transaction>[] = [
     header: 'Category',
     cell: ({ row }) => {
       const category = row.getValue('category') as Category;
-      console.log(category);
       return (
         <TooltipProvider>
           <Tooltip>
@@ -89,29 +112,27 @@ export const columns: ColumnDef<Transaction>[] = [
       );
     },
   },
-  //   {
-  //     accessorKey: 'createdAt',
-  //     header: 'Date',
-  //     cell: ({ row }) => {
-  //       const date: Date = row.getValue('createdAt');
-  //       const dateString = date.toISOString();
-  //       return (
-  //         <div>
-  //           {dateString.replace('T', ' ').split(':')[0] +
-  //             ':' +
-  //             dateString.split(':')[1]}
-  //         </div>
-  //       );
-  //     },
-  //   },
+  {
+    accessorKey: 'createdAt',
+    header: 'Date',
+    cell: ({ row }) => {
+      const date: Date = row.getValue('createdAt');
+      const dateString = date.toISOString();
+      return (
+        <div>
+          {dateString.replace('T', ' ').split(':')[0] +
+            ':' +
+            dateString.split(':')[1]}
+        </div>
+      );
+    },
+  },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original;
-
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
@@ -119,10 +140,14 @@ export const columns: ColumnDef<Transaction>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer text-red-500">
-              Delete
-            </DropdownMenuItem>
+            <div className="cursor-pointer rounded-md px-2 py-1 text-sm hover:bg-slate-100">
+              Edit
+            </div>
+            <div className="cursor-pointer rounded-md px-2 py-1 text-sm text-red-500 hover:bg-slate-100">
+              <DeleteTransactionModal
+                id={row.original.id}
+              ></DeleteTransactionModal>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       );

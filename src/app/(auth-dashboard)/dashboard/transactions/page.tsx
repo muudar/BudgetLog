@@ -4,8 +4,6 @@ import { redirect } from 'next/navigation';
 import { TransactionsDataTable } from './_components/TransactionTable';
 import { columns } from './_components/column';
 
-//TODO: Table responsivity , add/remove DATE column
-
 const page = async () => {
   const { userId } = auth();
   if (!userId) redirect('/login');
@@ -14,6 +12,9 @@ const page = async () => {
     transactions = await prisma.transaction.findMany({
       where: {
         userId,
+        type: {
+          in: ['SPENDING', 'EARNING'],
+        },
       },
       include: {
         category: true,
@@ -23,7 +24,6 @@ const page = async () => {
     console.error(error);
   }
   if (!transactions) return null;
-  console.log(transactions);
   return (
     <>
       <div className="bg-red-500 lg:col-span-5">Item 1</div>
