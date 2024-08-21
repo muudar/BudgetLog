@@ -3,6 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ArrowUpDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -101,20 +102,40 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: 'amount',
-    header: 'Amount',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const amount = row.getValue('amount');
       const type = row.getValue('type');
       return type == 'SPENDING' ? (
-        <div className="text-red-500">{`-${amount}`}</div>
+        <div className="ml-6 text-red-500">{`-${amount}`}</div>
       ) : (
-        <div className="text-green-500">{`+${amount}`}</div>
+        <div className="ml-6 text-green-500">{`+${amount}`}</div>
       );
     },
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const date: Date = row.getValue('createdAt');
       const dateString = date.toISOString();
