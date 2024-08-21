@@ -37,7 +37,7 @@ export function DeleteTransactionModal({ id }: { id: string }) {
   }, [id]);
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger className="flex w-full justify-start">
         <div>Delete</div>
       </AlertDialogTrigger>
       <AlertDialogContent>
