@@ -520,3 +520,161 @@ export async function getLast7DaysTransactions() {
     };
   }
 }
+
+export async function getSpendingsChartData() {
+  const { userId } = auth();
+
+  try {
+    if (!userId) throw new Error('User not authenticated');
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        userId,
+        type: 'SPENDING',
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    const categoryMap: {
+      [key: string]: { name: string; totalSpent: number; fill: string };
+    } = {};
+
+    transactions.forEach((transaction) => {
+      const categoryId = transaction.categoryId;
+      if (categoryId && transaction.category) {
+        const { name, emoji } = transaction.category;
+        if (!categoryMap[categoryId]) {
+          categoryMap[categoryId] = {
+            name,
+            totalSpent: 0,
+            fill: `hsl(var(--chart-${Object.keys(categoryMap).length + 1}))`,
+          };
+        }
+        categoryMap[categoryId].totalSpent += transaction.amount;
+      }
+    });
+
+    const sortedCategories = Object.values(categoryMap).sort(
+      (a, b) => b.totalSpent - a.totalSpent
+    );
+
+    // Prepare chart data
+    let chartData;
+    if (sortedCategories.length <= 6) {
+      chartData = sortedCategories.map((category) => ({
+        category: category.name,
+        spent: category.totalSpent,
+        fill: category.fill,
+      }));
+    } else {
+      const topCategories = sortedCategories.slice(0, 6);
+      const otherSpent = sortedCategories
+        .slice(6)
+        .reduce((sum, category) => sum + category.totalSpent, 0);
+
+      chartData = [
+        ...topCategories.map((category) => ({
+          category: category.name,
+          spent: category.totalSpent,
+          fill: category.fill,
+        })),
+        {
+          category: 'Other',
+          spent: otherSpent,
+          fill: `hsl(var(--chart-${Object.keys(categoryMap).length + 1}))`,
+        },
+      ];
+    }
+
+    return {
+      data: chartData,
+      ok: true,
+    };
+  } catch (err) {
+    console.error('Failed to get spendings chart data', err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  }
+}
+
+export async function getEarningsChartData() {
+  const { userId } = auth();
+
+  try {
+    if (!userId) throw new Error('User not authenticated');
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        userId,
+        type: 'EARNING',
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    const categoryMap: {
+      [key: string]: { name: string; totalEarnt: number; fill: string };
+    } = {};
+
+    transactions.forEach((transaction) => {
+      const categoryId = transaction.categoryId;
+      if (categoryId && transaction.category) {
+        const { name, emoji } = transaction.category;
+        if (!categoryMap[categoryId]) {
+          categoryMap[categoryId] = {
+            name,
+            totalEarnt: 0,
+            fill: `hsl(var(--chart-${Object.keys(categoryMap).length + 1}))`,
+          };
+        }
+        categoryMap[categoryId].totalEarnt += transaction.amount;
+      }
+    });
+
+    const sortedCategories = Object.values(categoryMap).sort(
+      (a, b) => b.totalEarnt - a.totalEarnt
+    );
+
+    // Prepare chart data
+    let chartData;
+    if (sortedCategories.length <= 6) {
+      chartData = sortedCategories.map((category) => ({
+        category: category.name,
+        earnt: category.totalEarnt,
+        fill: category.fill,
+      }));
+    } else {
+      const topCategories = sortedCategories.slice(0, 6);
+      const otherEarnt = sortedCategories
+        .slice(6)
+        .reduce((sum, category) => sum + category.totalEarnt, 0);
+
+      chartData = [
+        ...topCategories.map((category) => ({
+          category: category.name,
+          earnt: category.totalEarnt,
+          fill: category.fill,
+        })),
+        {
+          category: 'Other',
+          earnt: otherEarnt,
+          fill: `hsl(var(--chart-${Object.keys(categoryMap).length + 1}))`,
+        },
+      ];
+    }
+
+    return {
+      data: chartData,
+      ok: true,
+    };
+  } catch (err) {
+    console.error('Failed to get spendings chart data', err);
+    return {
+      message: err instanceof Error ? err.message : 'Internal Server Error',
+      ok: false,
+    };
+  }
+}

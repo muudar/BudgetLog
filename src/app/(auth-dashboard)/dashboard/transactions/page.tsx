@@ -3,6 +3,8 @@ import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { TransactionsDataTable } from './_components/TransactionTable';
 import { columns } from './_components/column';
+import { SpendingsPieChart } from './_components/SpendingsPieChart';
+import { EarningsPieChart } from './_components/EarningsPieChart';
 
 const page = async () => {
   const { userId } = auth();
@@ -26,8 +28,12 @@ const page = async () => {
   if (!transactions) return null;
   return (
     <>
-      <div className="bg-red-500 lg:col-span-5">Item 1</div>
-      <div className="bg-red-500 lg:col-span-5">Item 2</div>
+      <div className="lg:col-span-5">
+        <SpendingsPieChart></SpendingsPieChart>
+      </div>
+      <div className="lg:col-span-5">
+        <EarningsPieChart></EarningsPieChart>
+      </div>
       <div className="border bg-balanceBg lg:col-span-full">
         <TransactionsDataTable
           data={transactions}

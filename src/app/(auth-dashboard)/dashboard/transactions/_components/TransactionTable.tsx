@@ -22,6 +22,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
+//TODO: implement pagination, search, column filtering, and sort
 export function TransactionsDataTable<TData, TValue>({
   columns,
   data,
