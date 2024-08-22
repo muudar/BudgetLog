@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
@@ -92,6 +93,7 @@ const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Balance</DialogTitle>
+        <DialogDescription></DialogDescription>
         <Tabs defaultValue="account" className="w-full p-2">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="modify">Change Balance</TabsTrigger>

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
@@ -53,7 +54,7 @@ const SavingsModal = ({ currentBalance, currentSavings }: Props) => {
         toast.remove('loading');
       }
     },
-    [transferAmount, currentSavings]
+    [transferAmount, currentBalance]
   );
 
   return (
@@ -65,6 +66,7 @@ const SavingsModal = ({ currentBalance, currentSavings }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Savings</DialogTitle>
+        <DialogDescription></DialogDescription>
         <form onSubmit={handleBalanceTransfer}>
           <Card>
             <CardHeader>

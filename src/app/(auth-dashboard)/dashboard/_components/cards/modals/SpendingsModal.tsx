@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
@@ -98,6 +99,7 @@ const SpendingsModal = ({ currentBalance }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Spendings</DialogTitle>
+        <DialogDescription></DialogDescription>
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader>

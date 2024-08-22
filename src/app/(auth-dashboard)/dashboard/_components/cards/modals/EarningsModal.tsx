@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
@@ -98,6 +99,7 @@ const EarningsModal = ({ currentBalance }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Earnings</DialogTitle>
+        <DialogDescription></DialogDescription>
         <form name="earnings" id="earnings" onSubmit={handleSubmit}>
           <Card>
             <CardHeader>

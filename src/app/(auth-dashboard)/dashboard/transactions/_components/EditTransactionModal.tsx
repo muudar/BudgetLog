@@ -64,7 +64,6 @@ export function EditTransactionModal({
       toast.remove('loading');
     }
   }, [data]);
-  console.log(data.category);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="flex w-full justify-start">
@@ -73,6 +72,7 @@ export function EditTransactionModal({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Transaction</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
         <form className="space-y-2">
           <div className="flex items-center gap-2">

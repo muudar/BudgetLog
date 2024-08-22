@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -61,6 +62,7 @@ const AddCategoryModal = ({ open, setOpen }: Props) => {
         <form name="category" id="category" onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add category</DialogTitle>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
           <div className="grid gap-2 py-4">
             <div className="grid grid-cols-5 items-center gap-2">
