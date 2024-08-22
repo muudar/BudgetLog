@@ -19,10 +19,10 @@ const RecentTransactions = async ({ currency }: { currency: string }) => {
     orderBy: {
       createdAt: 'desc', // Sorts by 'createdAt' in descending order
     },
-    take: 6,
+    take: 8,
   });
   return (
-    <Card className="bg-muted/40 lg:h-[420px]">
+    <Card className="bg-muted/40 lg:h-[520px]">
       <CardHeader>
         <CardTitle className="text-xl">Recent Transactions</CardTitle>
       </CardHeader>
