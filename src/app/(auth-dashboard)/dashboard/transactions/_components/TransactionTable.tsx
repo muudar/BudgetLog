@@ -56,7 +56,7 @@ export function TransactionsDataTable<TData, TValue>({
         setColumnVisibility({
           type: false,
           createdAt: false,
-          description: true,
+          description: false,
         });
       } else if (tabletMedia.matches) {
         setColumnVisibility({

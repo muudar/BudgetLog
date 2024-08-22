@@ -48,7 +48,6 @@ export function EarningsPieChart() {
 
     fetchChartData();
   }, []);
-  console.log(chartData);
   const total = chartData.reduce((total, item) => total + item.earnt, 0);
   return (
     <Card className="flex flex-col bg-muted/40">

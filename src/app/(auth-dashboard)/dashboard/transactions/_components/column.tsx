@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { DeleteTransactionModal } from './DeleteTransactionModal';
+import { EditTransactionModal } from './EditTransactionModal';
 
 type Category = {
   id: string;
@@ -131,7 +132,7 @@ export const columns: ColumnDef<Transaction>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Amount
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -162,7 +163,9 @@ export const columns: ColumnDef<Transaction>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <div className="cursor-pointer rounded-md px-2 py-1 text-sm hover:bg-slate-100">
-              Edit
+              <EditTransactionModal
+                transaction={row.original}
+              ></EditTransactionModal>
             </div>
             <div className="cursor-pointer rounded-md px-2 py-1 text-sm text-red-500 hover:bg-slate-100">
               <DeleteTransactionModal
