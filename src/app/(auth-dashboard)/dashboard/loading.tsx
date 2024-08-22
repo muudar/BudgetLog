@@ -20,20 +20,20 @@ const loading = () => {
       </div>
       <div className="lg:col-span-4">
         <Skeleton
-          className={`h-[307px] w-full bg-slate-200 lg:h-[350px] xl:h-[405px]`}
+          className={`h-[335px] w-full bg-slate-200 lg:h-[350px] xl:h-[405px]`}
         ></Skeleton>
       </div>
       <div className="lg:col-span-4">
         <Skeleton
-          className={`h-[250px] w-full bg-slate-200 lg:h-[420px] xl:h-[420px]`}
+          className={`h-[500px] w-full bg-slate-200 lg:h-[520px]`}
         ></Skeleton>
       </div>
       <div className="flex flex-col justify-between gap-4 lg:col-span-6">
         <Skeleton
-          className={`h-[200px] w-full bg-slate-200 lg:h-[200px] xl:h-[200px]`}
+          className={`h-[200px] w-full bg-slate-200 lg:h-[250px]`}
         ></Skeleton>
         <Skeleton
-          className={`h-[200px] w-full bg-slate-200 lg:h-[200px] xl:h-[200px]`}
+          className={`h-[200px] w-full bg-slate-200 lg:h-[250px]`}
         ></Skeleton>
       </div>
     </>
