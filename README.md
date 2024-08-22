@@ -35,7 +35,7 @@ A full **table** where users can:
 
 - [**Next.js**](https://nextjs.org/): Full-stack application using client and server components.
 
-- **TailWind**(https://tailwindcss.com/): for stylization.
+- [**TailWind**](https://tailwindcss.com/): for stylization.
 
 - [**Vercel**](https://vercel.com/): Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
 
@@ -44,7 +44,5 @@ A full **table** where users can:
 ## Additional Notes
 
 **Landing Page**: Currently very basic. Focus was on the dashboard to ensure core functionality before the deadline of August 25th, 2024. Plans to improve the landing page and add features like category deletion in future updates.
-
-> [!IMPORTANT]
 
 > **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
