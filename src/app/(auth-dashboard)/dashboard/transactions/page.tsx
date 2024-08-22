@@ -5,11 +5,13 @@ import { TransactionsDataTable } from './_components/TransactionTable';
 import { columns } from './_components/column';
 import { SpendingsPieChart } from './_components/SpendingsPieChart';
 import { EarningsPieChart } from './_components/EarningsPieChart';
+import { Category } from '@/lib/types';
 
 const page = async () => {
   const { userId } = auth();
   if (!userId) redirect('/login');
   let transactions = null;
+  let categories: Category[] = [];
   try {
     transactions = await prisma.transaction.findMany({
       where: {
@@ -22,6 +24,15 @@ const page = async () => {
         category: true,
       },
     });
+    let userData = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+      include: {
+        categories: true,
+      },
+    });
+    categories = userData?.categories || [];
   } catch (error) {
     console.error(error);
   }
@@ -36,6 +47,7 @@ const page = async () => {
       </div>
       <div className="border bg-balanceBg lg:col-span-full">
         <TransactionsDataTable
+          categories={categories}
           data={transactions}
           columns={columns}
         ></TransactionsDataTable>

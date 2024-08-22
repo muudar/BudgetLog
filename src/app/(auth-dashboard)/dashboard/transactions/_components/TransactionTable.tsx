@@ -9,6 +9,7 @@ import {
   useReactTable,
   SortingState,
   getSortedRowModel,
+  RowData,
 } from '@tanstack/react-table';
 
 import {
@@ -21,15 +22,24 @@ import {
 } from '@/components/ui/table';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { Category } from '@/lib/types';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  categories: Category[];
+}
+
+declare module '@tanstack/table-core' {
+  interface TableMeta<TData extends RowData> {
+    categories: Category[];
+  }
 }
 
 export function TransactionsDataTable<TData, TValue>({
   columns,
   data,
+  categories,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState({
     type: true,
@@ -96,7 +106,9 @@ export function TransactionsDataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-
+    meta: {
+      categories: categories,
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,

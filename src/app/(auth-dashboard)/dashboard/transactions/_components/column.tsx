@@ -151,7 +151,8 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
+      let categories = table.options.meta?.categories;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -164,6 +165,7 @@ export const columns: ColumnDef<Transaction>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <div className="cursor-pointer rounded-md px-2 py-1 text-sm hover:bg-slate-100">
               <EditTransactionModal
+                categories={categories || []}
                 transaction={row.original}
               ></EditTransactionModal>
             </div>
