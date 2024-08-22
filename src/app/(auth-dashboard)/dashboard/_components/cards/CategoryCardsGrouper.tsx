@@ -24,11 +24,11 @@ const CategoryCardsGrouper = async ({
   currency,
 }: Props) => {
   return (
-    <Card className="bg-muted/40 lg:h-[200px]">
+    <Card className="bg-muted/40 lg:h-[250px]">
       <CardHeader>
         <CardTitle className="text-xl">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="-mt-2 grid grid-cols-3 grid-rows-2 gap-2 lg:grid-cols-6 lg:grid-rows-1">
+      <CardContent className="-mt-2 grid grid-cols-3 grid-rows-2 gap-2">
         {data.length > 0 ? (
           data.map((category) => (
             <CategoryCard
