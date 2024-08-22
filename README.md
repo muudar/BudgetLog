@@ -1,4 +1,8 @@
-# Budget Log
+# Budget Log V1.0.0
+
+## Demo
+
+You can access the web app [here](https://budget-log.vercel.app/)
 
 **Budget Log** is a personal finance application where users can manage their finances by logging spendings and earnings. Upon logging in or signing up (using [**Clerk**](https://clerk.com/) for authentication, including social auth), users are presented with a dashboard that has two main pages: Home and Transactions.
 
@@ -27,9 +31,15 @@ A full **table** where users can:
 
 ## Tech Stack
 
-**Next.js**: Full-stack application using client and server components.
-**Vercel**: Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
-**Prisma**: ORM for managing database operations.
+- **TypeScript**
+
+- [**Next.js**](https://nextjs.org/): Full-stack application using client and server components.
+
+- **TailWind**(https://tailwindcss.com/): for stylization.
+
+- [**Vercel**](https://vercel.com/): Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
+
+- [**Prisma**](https://www.prisma.io/): ORM for managing database operations.
 
 ## Additional Notes
 
