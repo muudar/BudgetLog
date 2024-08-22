@@ -1,4 +1,8 @@
-# Budget Log
+# Budget Log V1.0.0
+
+## Demo
+
+You can access the web app [here](https://budget-log.vercel.app/)
 
 **Budget Log** is a personal finance application where users can manage their finances by logging spendings and earnings. Upon logging in or signing up (using [**Clerk**](https://clerk.com/) for authentication, including social auth), users are presented with a dashboard that has two main pages: Home and Transactions.
 
@@ -27,13 +31,20 @@ A full **table** where users can:
 
 ## Tech Stack
 
-**Next.js**: Full-stack application using client and server components.
-**Vercel**: Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
-**Prisma**: ORM for managing database operations.
+- **TypeScript**
+
+- [**Next.js**](https://nextjs.org/): Full-stack application using client and server components.
+
+- **TailWind**(https://tailwindcss.com/): for stylization.
+
+- [**Vercel**](https://vercel.com/): Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
+
+- [**Prisma**](https://www.prisma.io/): ORM for managing database operations.
 
 ## Additional Notes
 
 **Landing Page**: Currently very basic. Focus was on the dashboard to ensure core functionality before the deadline of August 25th, 2024. Plans to improve the landing page and add features like category deletion in future updates.
 
+> [!IMPORTANT]
 
->  IMPORTANT NOTE: **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
+> **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
