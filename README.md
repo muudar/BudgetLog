@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Budget Log
 
-## Getting Started
+**Budget Log** is a personal finance application where users can manage their finances by logging spendings and earnings. Upon logging in or signing up (using [**Clerk**](https://clerk.com/) for authentication, including social auth), users are presented with a dashboard that has two main pages: Home and Transactions.
 
-First, run the development server:
+## Home Page
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Balance Card**: Users can either:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Transfer money from their savings to their balance.
+- Directly change their balance (e.g., set an initial balance).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Savings Card**: Users can move money from their balance to savings, where it remains untouched.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Spendings Card**: Users can log spendings by providing an amount, description, and category (e.g., "Food"). This decreases the balance by the logged amount.
 
-## Learn More
+**Earnings Card**: Users can log earnings by entering an amount, description, and category (e.g., "Work"). This increases the balance by the logged amount.
 
-To learn more about Next.js, take a look at the following resources:
+## Transactions Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Pie Charts**: Two pie charts are available: one for spendings and one for earnings. They display the distribution of the top six categories, with all other categories grouped under "Other."
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+A full **table** where users can:
 
-## Deploy on Vercel
+- Read/view all transactions.
+- Edit existing transactions.
+- Delete existing transactions transactions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Next.js**: Full-stack application using client and server components.
+**Vercel**: Deployed on Vercel, using their Postgres database for storage (note: the free plan may have a connection limit).
+**Prisma**: ORM for managing database operations.
+
+## Additional Notes
+
+**Landing Page**: Currently very basic. Focus was on the dashboard to ensure core functionality before the deadline of August 25th, 2024. Plans to improve the landing page and add features like category deletion in future updates.
+
+[!IMPORTANT]: **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
