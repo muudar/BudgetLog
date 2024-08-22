@@ -101,7 +101,7 @@ export function EditTransactionModal({
                 <SelectTrigger>
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
-                <SelectContent className="h-[250px] overflow-y-scroll">
+                <SelectContent className="max-h-[250px] overflow-y-scroll">
                   <SelectGroup>
                     <SelectLabel>Category</SelectLabel>
                     {categories.length > 0 ? (
