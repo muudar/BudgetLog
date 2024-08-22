@@ -37,4 +37,4 @@ A full **table** where users can:
 
 > [!IMPORTANT]
 
-> **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
+>  **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits. Screenshots of a fully populated account will be provided to illustrate the application’s functionality despite potential connection issues.
