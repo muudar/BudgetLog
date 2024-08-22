@@ -678,3 +678,72 @@ export async function getEarningsChartData() {
     };
   }
 }
+
+export async function editTransaction(data: any) {
+  try {
+    const existingTransaction = await prisma.transaction.findUnique({
+      where: { id: data.id },
+    });
+
+    if (!existingTransaction) {
+      throw new Error('Transaction not found');
+    }
+
+    let categoryId = null;
+    if (data.category) {
+      let category = await prisma.category.findFirst({
+        where: {
+          userId: existingTransaction.userId,
+          name: data.category,
+        },
+      });
+      if (category) categoryId = category.id;
+    }
+
+    const amountDifference = data.amount - existingTransaction.amount;
+
+    await prisma.$transaction(async (prisma) => {
+      await prisma.transaction.update({
+        where: { id: data.id },
+        data: {
+          description: data.description,
+          amount: Number(data.amount),
+          categoryId: categoryId,
+        },
+      });
+
+      if (existingTransaction.type === 'SPENDING') {
+        await prisma.user.update({
+          where: { id: existingTransaction.userId },
+          data: {
+            balance: { decrement: amountDifference },
+            spendings: { increment: amountDifference },
+          },
+        });
+      } else if (existingTransaction.type === 'EARNING') {
+        await prisma.user.update({
+          where: { id: existingTransaction.userId },
+          data: {
+            balance: { increment: amountDifference },
+            earnings: {
+              increment: amountDifference,
+            },
+          },
+        });
+      }
+    });
+
+    return {
+      ok: true,
+      message: 'Transaction updated successfully',
+    };
+  } catch (error) {
+    console.error('Error editing transaction:', error);
+    return {
+      ok: false,
+      message: 'Failed to edit transaction',
+    };
+  } finally {
+    revalidatePath('/dashboard/transactions');
+  }
+}

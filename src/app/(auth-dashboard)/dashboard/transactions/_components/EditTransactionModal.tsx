@@ -20,11 +20,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Category } from '@/lib/types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import AddCategoryModal from '../../_components/cards/modals/AddCategoryModal';
 import { Textarea } from '@/components/ui/textarea';
-
-//TODO: Create edit transaction modal
+import toast from 'react-hot-toast';
+import { editTransaction } from '@/actions/transactions';
 
 export function EditTransactionModal({
   transaction,
@@ -36,10 +36,34 @@ export function EditTransactionModal({
   const [open, setOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [data, setData] = useState({
+    id: transaction.id,
     amount: transaction.amount,
     category: transaction.category.name,
     description: transaction.description,
   });
+
+  const handleEditTransaction = useCallback(async () => {
+    try {
+      toast.loading('Editing...', {
+        id: 'loading',
+      });
+      const res = await editTransaction(data);
+      if (res.ok) {
+        toast.success(res.message);
+        setOpen(false);
+      }
+      if (!res.ok) {
+        toast.error(res.message || 'Internal server error');
+      }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Internal server error'
+      );
+      console.error(error);
+    } finally {
+      toast.remove('loading');
+    }
+  }, [data]);
   console.log(data.category);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -116,6 +140,7 @@ export function EditTransactionModal({
             Cancel
           </Button>
           <Button
+            onClick={handleEditTransaction}
             disabled={
               !data.amount ||
               !data.category ||
