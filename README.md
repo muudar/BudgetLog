@@ -19,6 +19,12 @@ You can access the web app [here](https://budget-log.vercel.app/)
 
 **Earnings Card**: Users can log earnings by entering an amount, description, and category (e.g., "Work"). This increases the balance by the logged amount.
 
+**Analysis Chart**: Users can check their spendings and earnings on each day of the last 7 days in order to compare.
+
+**Recent Transactions**: Read/View last 8 transactions.
+
+**Category Groupers**: All time money spent/earnt on each category created.
+
 ## Transactions Page
 
 **Pie Charts**: Two pie charts are available: one for spendings and one for earnings. They display the distribution of the top six categories, with all other categories grouped under "Other."
