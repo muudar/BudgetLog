@@ -87,7 +87,7 @@ const BalanceModal = ({ currentBalance, currentSavings }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="b-1 cursor-pointer rounded-md border bg-white p-1 hover:bg-slate-200">
+        <div className="b-1 cursor-pointer rounded-md border bg-white hover:bg-slate-200 sm:p-1">
           <ArrowUpRight />
         </div>
       </DialogTrigger>

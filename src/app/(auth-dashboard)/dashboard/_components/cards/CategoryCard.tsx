@@ -16,11 +16,17 @@ const CategoryCard = ({
   currency,
 }: Props) => {
   return (
-    <div className={`flex-col rounded-md bg-${backgroundColor} p-2`}>
-      <div className="text-sm">{emoji}</div>
-      <div className="text-sm">{categoryName}</div>
-      <div className="text-sm font-bold">
+    <div
+      className={`flex-col break-words rounded-md text-sm bg-${backgroundColor} p-2`}
+    >
+      <div className="text-lg">{emoji}</div>
+      <div className="w-full truncate">{categoryName}</div>
+      <div className="hidden font-bold sm:block">
         {value} {currency}
+      </div>
+      <div className="block sm:hidden">
+        <div className="font-bold">{value}</div>
+        <div className="font-bold">{currency}</div>
       </div>
     </div>
   );

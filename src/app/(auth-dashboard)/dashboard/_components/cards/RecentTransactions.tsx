@@ -30,17 +30,17 @@ const RecentTransactions = async ({ currency }: { currency: string }) => {
         {recentTransactions.length > 0 ? (
           recentTransactions.map((transaction) => (
             <div key={transaction.id} className="-mt-1 flex justify-between">
-              <div className="flex gap-4">
+              <div className="flex items-center gap-4">
                 <div
-                  className={`b-1 flex h-full w-10 items-center justify-center border text-xl bg-${transaction.type == 'SPENDING' ? 'spendingsBg' : 'earningsBg'}`}
+                  className={`b-1 text-md flex size-10 items-center justify-center border bg-${transaction.type == 'SPENDING' ? 'spendingsBg' : 'earningsBg'}`}
                 >
                   {transaction.category?.emoji}
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-lg font-bold">
+                  <div className="text-md w-[30vw] truncate font-bold sm:w-full sm:text-lg">
                     {transaction.category?.name}
                   </div>
-                  <div className="-mt-1 truncate text-sm">
+                  <div className="-mt-1 w-[30vwpx] truncate text-xs sm:w-full sm:text-sm">
                     {!transaction.description
                       ? 'No details given.'
                       : transaction.description.substring(0, 16) +
@@ -49,7 +49,7 @@ const RecentTransactions = async ({ currency }: { currency: string }) => {
                 </div>
               </div>
               <div
-                className={`self-center text-lg ${transaction.type == 'SPENDING' ? 'text-red-500' : 'text-green-500'}`}
+                className={`text-md self-center sm:text-lg ${transaction.type == 'SPENDING' ? 'text-red-500' : 'text-green-500'}`}
               >
                 {(transaction.type == 'SPENDING' ? '-' : '+') +
                   transaction.amount +
