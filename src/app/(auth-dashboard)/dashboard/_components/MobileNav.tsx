@@ -12,11 +12,13 @@ import { NAV_LINKS } from '@/lib/constants';
 import { Home, Package2, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const MobileNav = () => {
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <div className="hidden">
         <SheetTitle>Mobile Navigation Bar</SheetTitle>
         <SheetDescription>Navigation Bar for small screen</SheetDescription>
@@ -46,6 +48,7 @@ const MobileNav = () => {
                   className={`flex items-center gap-4 px-2.5 hover:text-foreground ${
                     isActive ? 'text-foreground' : 'text-muted-foreground'
                   }`}
+                  onClick={() => setOpen(false)}
                 >
                   <link.icon className="h-5 w-5" />
                   {link.label}
