@@ -1,7 +1,13 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { NAV_LINKS } from '@/lib/constants';
 import { Home, Package2, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +17,10 @@ const MobileNav = () => {
   const pathname = usePathname();
   return (
     <Sheet>
+      <div className="hidden">
+        <SheetTitle>Mobile Navigation Bar</SheetTitle>
+        <SheetDescription>Navigation Bar for small screen</SheetDescription>
+      </div>
       <SheetTrigger asChild>
         <Button size="icon" variant="outline" className="sm:hidden">
           <PanelLeft className="h-5 w-5" />
