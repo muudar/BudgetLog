@@ -39,13 +39,13 @@ const page = async () => {
   if (!transactions) return null;
   return (
     <>
-      <div className="lg:col-span-5">
+      <div className="max-w-[calc(100vw-32px)] lg:col-span-5">
         <SpendingsPieChart></SpendingsPieChart>
       </div>
-      <div className="lg:col-span-5">
+      <div className="max-w-[calc(100vw-32px)] lg:col-span-5">
         <EarningsPieChart></EarningsPieChart>
       </div>
-      <div className="border bg-balanceBg lg:col-span-full">
+      <div className="max-w-[calc(100vw-32px)] border bg-balanceBg lg:col-span-full">
         <TransactionsDataTable
           categories={categories}
           data={transactions}

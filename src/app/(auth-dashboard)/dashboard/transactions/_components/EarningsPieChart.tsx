@@ -52,7 +52,9 @@ export function EarningsPieChart() {
   return (
     <Card className="flex flex-col bg-muted/40">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Earnings</CardTitle>
+        <CardTitle className="text-xl md:text-3xl">
+          Pie Chart - Earnings
+        </CardTitle>
         <CardDescription>All time stats</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
