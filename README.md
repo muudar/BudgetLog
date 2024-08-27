@@ -53,16 +53,24 @@ A full **table** where users can:
 
 > **Database Limitations**: The application is deployed on Vercel's free storage database, which has connection limits that may cause issues if many operations are performed simultaneously. Users might encounter Prisma errors due to these limits.
 
-
-## Update Logs 
+## Update Logs
 
 ### Version 1.0.1 - August 26th, 2024
 
 #### Bug Fixes
+
 - **Mobile Navigation**: Fixed an issue where the mobile navigation menu was not closing after selecting a link.
 - **Responsive Design**: Resolved a bug on the main and transactions pages where the application was not responsive on screens smaller than 350 pixels.
 - **Loader Skeletons**: Corrected the heights of the loader skeletons on the home and transactions pages to accurately represent the actual card heights.
 
 #### Improvements
+
 - **Accessibility**: Added hidden title and description to the mobile navigation menu to eliminate console errors and improve accessibility for screen readers.
 - **Responsive Design**: Improved the overall responsiveness of the landing page for better user experience on various screen sizes.
+
+### Version 1.1.0 - August 28th, 2024
+
+### Features:
+
+- **Landing Page** : Added Logos for app.
+- **Landing Page** : Added "Why Us?" Section in landing page.
