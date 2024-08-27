@@ -6,7 +6,23 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-muted/60 px-6 py-10 sm:px-12">
       <nav className="flex w-full items-center justify-between">
-        <div className="text-xl font-bold">BudgetLog</div>
+        <div className="-mt-3 hidden sm:block">
+          <Image
+            src={'/logos/horizontal-logo.png'}
+            alt="Logo"
+            height={0}
+            width={150}
+          ></Image>
+        </div>
+        <div className="block sm:hidden">
+          <Image
+            src={'/logos/mobile-logo.png'}
+            alt="Logo"
+            height={50}
+            width={50}
+          ></Image>
+        </div>
+        {/* <div className="text-xl font-bold">BudgetLog</div> */}
         <div className="flex items-center gap-8">
           <div className="hidden items-center gap-8 md:flex">
             <div className="cursor-pointer">Features</div>
