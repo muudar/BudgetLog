@@ -74,3 +74,9 @@ A full **table** where users can:
 
 - **Landing Page** : Added Logos for app.
 - **Landing Page** : Added "Why Us?" Section in landing page.
+
+### Version 1.1.1 - August 28th, 2024
+
+### Features:
+
+**Logo** : Changed BudgetLog logo.
